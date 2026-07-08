@@ -1,6 +1,6 @@
 # type.family
 
-全球字体厂商目录，收录 419+ 家字体设计公司与工作室。
+全球字体厂商目录，收录 981 家字体设计公司与工作室。
 
 ## 技术栈
 
@@ -45,7 +45,7 @@ src/
 │   ├── NavLink.tsx      # 导航链接
 │   └── Footer.tsx       # 页脚
 ├── data/
-│   └── foundries.ts     # 字体厂商数据（419+ 条）
+│   └── foundries.ts     # 字体厂商数据（981 条）
 ├── pages/
 │   ├── Index.tsx         # 首页
 │   ├── Typefaces.tsx     # 字体列表

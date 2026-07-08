@@ -152,7 +152,8 @@ export function FoundryTable() {
           显示 {filteredFoundries.length} / {foundries.length} 个字体厂商
         </span>
         <span className="hidden sm:inline">
-          更新于 {new Date(__GIT_LAST_COMMIT_DATE__).toLocaleDateString("zh-CN")}
+          更新于{" "}
+          {new Date(__GIT_LAST_COMMIT_DATE__).toLocaleDateString("zh-CN")}
         </span>
       </div>
     </div>

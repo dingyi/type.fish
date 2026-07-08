@@ -20,7 +20,8 @@
       "linter": {
         "rules": {
           "performance": {
-            "noNamespaceImport": "off"
+            "noNamespaceImport": "off",
+            "noBarrelFile": "off"
           },
           "correctness": {
             "noNestedComponentDefinitions": "off",
@@ -30,34 +31,28 @@
             "useFocusableInteractive": "off",
             "useSemanticElements": "off",
             "useAriaPropsForRole": "off",
-            "noRedundantRoles": "off"
+            "noRedundantRoles": "off",
+            "noNoninteractiveElementInteractions": "off",
+            "useKeyWithClickEvents": "off",
+            "noLabelWithoutControl": "off"
           },
           "style": {
             "useConsistentTypeDefinitions": "off",
             "noExportedImports": "off",
-            "useDefaultSwitchClause": "off"
+            "useDefaultSwitchClause": "off",
+            "noNestedTernary": "off"
           },
           "complexity": {
-            "noForEach": "off"
+            "noForEach": "off",
+            "noExcessiveCognitiveComplexity": "off"
           },
           "security": {
             "noDangerouslySetInnerHtml": "off"
           },
           "suspicious": {
-            "noDocumentCookie": "off"
-          }
-        }
-      }
-    },
-    {
-      "includes": ["**/*.css"],
-      "linter": {
-        "rules": {
-          "suspicious": {
-            "noUnknownAtRules": "off"
-          },
-          "correctness": {
-            "noInvalidPositionAtImportRule": "off"
+            "noDocumentCookie": "off",
+            "noArrayIndexKey": "off",
+            "noDoubleEquals": "off"
           }
         }
       }

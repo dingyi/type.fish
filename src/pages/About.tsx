@@ -177,7 +177,7 @@ const About = () => {
                 </Link>
                 <a
                   className="inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-1.5 text-muted-foreground text-xs transition-colors hover:bg-muted hover:text-foreground"
-                  href="https://github.com/dingyi/type.family"
+                  href="https://github.com/dingyi/type.fish"
                   rel="noopener noreferrer"
                   target="_blank"
                 >

@@ -4,10 +4,10 @@ import { HeroSection } from "@/components/HeroSection";
 const Typefaces = () => {
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto max-w-5xl px-4">
+      <div className="container mx-auto max-w-[1458px] px-4">
         <HeroSection />
-        <main>
-          <p className="text-muted-foreground text-xs">即将推出</p>
+        <main className="py-10">
+          <p className="font-mono text-muted-foreground text-xs">Coming soon</p>
         </main>
       </div>
       <Footer />

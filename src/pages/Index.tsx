@@ -5,7 +5,7 @@ import { HeroSection } from "@/components/HeroSection";
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto max-w-5xl px-4">
+      <div className="container mx-auto max-w-[1458px] px-4">
         <HeroSection />
         <main>
           <FoundryTable />

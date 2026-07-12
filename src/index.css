@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -60,9 +60,9 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 
-  --font-sans: "Geist Mono", monospace;
+  --font-sans: "Geist", sans-serif;
   --font-mono: "Geist Mono", monospace;
-  --font-heading: "Geist Mono", monospace;
+  --font-heading: "Geist", sans-serif;
 
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
@@ -87,34 +87,34 @@
 
 :root {
   --background: 0 0% 100%;
-  --foreground: 0 0% 9%;
+  --foreground: 0 0% 10%;
 
-  --card: 0 0% 100%;
-  --card-foreground: 0 0% 9%;
+  --card: 0 0% 98%;
+  --card-foreground: 0 0% 10%;
 
   --popover: 0 0% 100%;
-  --popover-foreground: 0 0% 9%;
+  --popover-foreground: 0 0% 10%;
 
-  --primary: 0 0% 9%;
+  --primary: 0 0% 10%;
   --primary-foreground: 0 0% 98%;
 
   --secondary: 0 0% 96%;
-  --secondary-foreground: 0 0% 9%;
+  --secondary-foreground: 0 0% 10%;
 
-  --muted: 0 0% 96%;
+  --muted: 0 0% 94%;
   --muted-foreground: 0 0% 45%;
 
   --accent: 0 0% 96%;
-  --accent-foreground: 0 0% 9%;
+  --accent-foreground: 0 0% 10%;
 
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 98%;
 
-  --border: 0 0% 90%;
-  --input: 0 0% 90%;
-  --ring: 0 0% 9%;
+  --border: 0 0% 94%;
+  --input: 0 0% 94%;
+  --ring: 0 0% 10%;
 
-  --radius: 0px;
+  --radius: 14px;
 
   --chart-1: 0 0% 9%;
   --chart-2: 0 0% 30%;
@@ -175,8 +175,8 @@
   }
 
   body {
-    font-family: "Geist Mono", monospace;
-    font-size: 13px;
+    font-family: "Geist", sans-serif;
+    font-size: 14px;
     @apply antialiased bg-background text-foreground;
   }
 
@@ -186,9 +186,14 @@
   h4,
   h5,
   h6 {
-    font-family: "Geist Mono", monospace;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
+    font-family: "Geist", sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  /* Tailwind v4 preflight drops the pointer cursor on buttons; restore it
+     for any non-disabled button so interactive elements feel interactive. */
+  button:not(:disabled) {
+    cursor: pointer;
   }
 }

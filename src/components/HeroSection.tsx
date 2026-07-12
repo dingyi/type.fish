@@ -12,17 +12,17 @@ export function HeroSection() {
 
   return (
     <header className="pt-10 pb-6">
-      <div className="flex items-center justify-between">
-        <h1 className="font-semibold text-foreground text-sm uppercase tracking-wide">
-          全球字体厂商目录
+      <div className="flex items-center justify-between gap-4">
+        <h1 className="font-semibold text-base text-foreground tracking-tight">
+          Type Foundry Directory
         </h1>
-        <nav className="flex items-center gap-4">
+        <nav className="flex items-center gap-1">
           {navItems.map((item) => (
             <Link
-              className={`text-xs transition-colors ${
+              className={`rounded-full px-3 py-1 text-sm transition-colors ${
                 pathname === item.path
-                  ? "text-foreground"
-                  : "text-muted-foreground hover:text-foreground"
+                  ? "bg-foreground text-background"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
               }`}
               key={item.path}
               to={item.path}
@@ -31,7 +31,7 @@ export function HeroSection() {
             </Link>
           ))}
           <Link
-            className="border border-border px-3 py-1 text-foreground text-xs transition-colors hover:bg-muted"
+            className="ml-2 rounded-full bg-foreground px-3 py-1 text-background text-sm transition-colors hover:bg-foreground/85"
             to="/submit"
           >
             Submit

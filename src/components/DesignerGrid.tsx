@@ -1,7 +1,16 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { CountryFlag } from "@/components/CountryFlag";
 import { designers } from "@/data/designers";
+
+function slugifyName(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/[\s_-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
 
 const PAGE_SIZE = 48;
 
@@ -102,9 +111,10 @@ export function DesignerGrid() {
       {/* Card grid */}
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {pageItems.map((designer) => (
-          <div
+          <Link
             className="flex flex-col gap-2 rounded-xl border border-border bg-card p-4 transition-colors hover:bg-accent"
             key={`${designer.name}-${designer.workCount}`}
+            to={`/designers/${slugifyName(designer.name)}`}
           >
             <div className="flex items-start justify-between gap-2">
               <h3 className="font-medium text-foreground text-sm">
@@ -132,7 +142,7 @@ export function DesignerGrid() {
                 </>
               )}
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 

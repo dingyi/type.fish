@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { CountryFlag } from "@/components/CountryFlag";
 import { foundries } from "@/data/foundries";
 
@@ -133,18 +134,19 @@ export function FoundryTable() {
                     {start + index + 1}
                   </td>
                   <td className="px-4 py-2.5">
-                    <a
+                    <Link
                       className="font-medium text-foreground transition-colors hover:text-muted-foreground"
-                      href={`https://${foundry.website}`}
-                      rel="noopener noreferrer"
-                      target="_blank"
+                      to={`/foundries/${foundry.id}`}
                     >
                       {foundry.name}
-                    </a>
+                    </Link>
                   </td>
                   <td className="hidden px-4 py-2.5 lg:table-cell">
                     {foundry.country ? (
-                      <CountryFlag className="h-3.5" country={foundry.country} />
+                      <CountryFlag
+                        className="h-3.5"
+                        country={foundry.country}
+                      />
                     ) : (
                       <span className="text-muted-foreground">—</span>
                     )}

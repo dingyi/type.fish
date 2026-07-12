@@ -4,6 +4,8 @@ import { CountryFlag } from "@/components/CountryFlag";
 import { Footer } from "@/components/Footer";
 import { HeroSection } from "@/components/HeroSection";
 import { type Foundry, foundries } from "@/data/foundries";
+import { foundrySlugByLocalId } from "@/data/foundry-bridge";
+import { useTypefaces } from "@/data/typefaces";
 import { cn } from "@/lib/utils";
 
 const About = () => {
@@ -126,6 +128,11 @@ const About = () => {
 
           <hr className="border-border" />
 
+          {/* Typeface coverage — lazy-loaded, so reported separately */}
+          <TypefaceCoverage />
+
+          <hr className="border-border" />
+
           {/* Data sources */}
           <section className="py-10">
             <p className="mb-6 font-medium font-mono text-muted-foreground text-xs tracking-tight">
@@ -201,6 +208,69 @@ const About = () => {
     </div>
   );
 };
+
+/**
+ * Reports how much of the foundry catalogue has linked typeface detail records,
+ * plus the open-source count. Data is lazy-loaded (the catalogue is ~7MB), so
+ * this section renders its own loading state.
+ *
+ * Per the coverage-honesty decision (ADR-0001): a foundry counts as "covered"
+ * when its local id is bridged to a type.lol slug that owns typeface records.
+ */
+function TypefaceCoverage() {
+  const { data: typefaces, isLoading } = useTypefaces();
+
+  const bridgedFoundryCount = Object.keys(foundrySlugByLocalId).length;
+  const openSourceCount = typefaces?.filter((t) => t.isOpenSource).length ?? 0;
+
+  return (
+    <section className="py-10">
+      <p className="mb-2 font-medium font-mono text-muted-foreground text-xs tracking-tight">
+        Typeface Coverage
+      </p>
+      <p className="mb-6 max-w-2xl text-foreground/80 text-sm leading-relaxed">
+        {bridgedFoundryCount.toLocaleString("en-US")} of{" "}
+        {foundries.length.toLocaleString("en-US")} foundries are linked to
+        typeface detail records. The rest are listed with their known metadata
+        until their catalogue is enriched.
+      </p>
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+        <div className="rounded-xl border border-border bg-card p-4">
+          <p className="font-bold font-mono text-2xl text-foreground tabular-nums tracking-tight">
+            {isLoading ? "…" : (typefaces?.length ?? 0).toLocaleString("en-US")}
+          </p>
+          <p className="mt-1 font-mono text-muted-foreground text-xs">
+            Typefaces catalogued
+          </p>
+        </div>
+        <div className="rounded-xl border border-border bg-card p-4">
+          <p className="font-bold font-mono text-2xl text-foreground tabular-nums tracking-tight">
+            {bridgedFoundryCount.toLocaleString("en-US")}
+          </p>
+          <p className="mt-1 font-mono text-muted-foreground text-xs">
+            Foundries with typefaces
+          </p>
+        </div>
+        <div className="rounded-xl border border-border bg-card p-4">
+          <p className="font-bold font-mono text-2xl text-foreground tabular-nums tracking-tight">
+            {isLoading ? "…" : openSourceCount.toLocaleString("en-US")}
+          </p>
+          <p className="mt-1 font-mono text-muted-foreground text-xs">
+            Open source (OFL)
+          </p>
+        </div>
+        <div className="rounded-xl border border-border bg-card p-4">
+          <p className="font-bold font-mono text-2xl text-foreground tabular-nums tracking-tight">
+            {foundries.length.toLocaleString("en-US")}
+          </p>
+          <p className="mt-1 font-mono text-muted-foreground text-xs">
+            Foundries total
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 interface Stat {
   label: string;

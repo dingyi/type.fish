@@ -35,7 +35,7 @@ export function HeroSection() {
     <header className="pt-10 pb-6">
       <div className="flex items-center justify-between gap-4">
         <h1 className="font-semibold text-base text-foreground tracking-tight">
-          Type Foundry Directory
+          type.fish
         </h1>
         <nav className="flex items-center gap-1">
           {navItems.map((item) => (

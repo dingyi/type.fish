@@ -1,0 +1,107 @@
+src/components/ui/progress.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 81
+src/components/NavLink.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 23-27
+  s_03f13cbfc858c9::t_0fb76a5fed2b19 1,9,12-22,28-34
+src/components/ui/bubble.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 128
+src/pages/Index.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 5-11,13-15
+src/components/ui/collapsible.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 19
+src/components/ui/item.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 192-194,196-197
+src/components/ui/accordion.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 77
+src/components/ui/carousel.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 241,245
+src/components/ui/breadcrumb.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 115,118
+src/components/ui/menubar.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 266,270-272,275-276,279-280
+src/components/ui/tooltip.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 64
+src/components/ui/marker.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 71
+src/components/ui/navigation-menu.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 167
+src/components/ui/input-group.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 153
+src/components/ui/attachment.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 198-201
+src/pages/About.tsx
+  s_03f13cbfc858c9::t_1ecb59d1ece696 290
+src/components/ui/context-menu.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 257,259,262-264,270
+src/pages/Submit.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 4-10,12-14
+src/components/ui/drawer.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 220,222-225,227
+src/components/ui/avatar.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 102,106
+src/components/ui/dropdown-menu.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 255,259-260,267-268
+src/components/ui/empty.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 100-101,103
+src/components/ui/sidebar.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 89-93,607-609
+biome.jsonc
+  s_03f13cbfc858c9::t_9029770c74e1dd 4,6-13,19-21,77-94
+  s_03f13cbfc858c9::t_2b6a174994cbce 5
+  s_03f13cbfc858c9::t_1ecb59d1ece696 22-24,38,74-76
+  s_03f13cbfc858c9::t_0fb76a5fed2b19 14-16
+index.html
+  s_03f13cbfc858c9::t_814995d651e05a 5,9,11,13,16,18-19,27-37,43
+src/pages/Designers.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 5-11,13-15
+src/components/ui/card.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 99-102
+src/components/ui/message.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 90
+src/components/ui/sheet.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 129,131,133
+public/placeholder.svg
+  s_03f13cbfc858c9::t_814995d651e05a 1,3-104
+  s_03f13cbfc858c9::t_2d1ff7fee6ef74 2
+src/components/ui/message-scroller.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 121,124-125
+src/components/ui/input-otp.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 83
+src/components/ui/field.tsx
+  s_03f13cbfc858c9::t_acbba2e2b240ed 196
+  s_03f13cbfc858c9::t_814995d651e05a 228,232
+src/components/ui/hover-card.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 51
+src/components/CountryFlag.tsx
+  s_03f13cbfc858c9::t_0fb76a5fed2b19 1
+src/components/ui/alert.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 76
+src/components/ui/chart.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 336,371-372
+src/components/ui/combobox.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 284-287,289,291-292,294
+src/components/ui/table.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 110-111,114
+src/components/ui/tabs.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 80
+src/components/ui/command.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 185,187,189
+src/components/ui/calendar.tsx
+  s_03f13cbfc858c9::t_814995d651e05a 131-138,162-168
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "fde1dc6e4c1f4593fd268ad754c27a986d3dccd3",
+  "prompts": {},
+  "sessions": {
+    "s_03f13cbfc858c9": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f7044-dd0d-7fe3-9170-3dfff5ca9df4",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Ding Yi <dingyimac@gmail.com>"
+    }
+  }
+}

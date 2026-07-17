@@ -287,7 +287,7 @@ function computeStats(): Stat[] {
       if (Number.isNaN(year)) {
         continue;
       }
-      withFounded++;
+      withFounded += 1;
     }
   }
 

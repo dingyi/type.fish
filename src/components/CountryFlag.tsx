@@ -1,3 +1,4 @@
+// biome-ignore lint/performance/noNamespaceImport: Flag components are selected from runtime country codes.
 import * as Flags from "country-flag-icons/react/3x2";
 import { getCountryCode } from "@/lib/countries";
 import { cn } from "@/lib/utils";

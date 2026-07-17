@@ -1,8 +1,27 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "extends": ["ultracite/biome/core", "ultracite/biome/react"],
+  "files": {
+    "includes": ["!!public/data"]
+  },
+  "assist": {
+    "actions": {
+      "source": {
+        "useSortedKeys": "off"
+      }
+    }
+  },
+  "javascript": {
+    "globals": ["__GIT_LAST_COMMIT_DATE__"]
+  },
   "linter": {
     "rules": {
+      "performance": {
+        "noJsxPropsBind": "off"
+      },
+      "suspicious": {
+        "noLeakedRender": "off"
+      },
       "style": {
         "useFilenamingConvention": {
           "level": "error",
@@ -16,7 +35,7 @@
   },
   "overrides": [
     {
-      "includes": ["src/components/ui/**", "src/hooks/**"],
+      "includes": ["src/components/ui/*.tsx", "src/hooks/*.{ts,tsx}"],
       "linter": {
         "rules": {
           "performance": {
@@ -52,7 +71,27 @@
           "suspicious": {
             "noDocumentCookie": "off",
             "noArrayIndexKey": "off",
-            "noDoubleEquals": "off"
+            "noDoubleEquals": "off",
+            "noEqualsToNull": "off",
+            "noShadow": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["index.html"],
+      "linter": {
+        "rules": {
+          "complexity": {
+            "noArguments": "off",
+            "useArrowFunction": "off"
+          },
+          "correctness": {
+            "noUndeclaredVariables": "off"
+          },
+          "suspicious": {
+            "noAssignInExpressions": "off",
+            "useStrictMode": "off"
           }
         }
       }

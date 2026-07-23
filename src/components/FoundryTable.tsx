@@ -1,15 +1,43 @@
-import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ExternalLink,
+  LayoutGrid,
+  List,
+} from "lucide-react";
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { CountryFlag } from "@/components/CountryFlag";
+import { FoundryCard } from "@/components/FoundryCard";
 import { foundries } from "@/data/foundries";
+import { foundryAssets } from "@/data/foundry-assets";
 
 const PAGE_SIZE = 48;
+const VIEW_MODE_KEY = "foundry-view-mode";
+type ViewMode = "list" | "grid";
+
+function readViewMode(): ViewMode {
+  try {
+    return localStorage.getItem(VIEW_MODE_KEY) === "grid" ? "grid" : "list";
+  } catch {
+    return "list";
+  }
+}
 
 export function FoundryTable() {
   const [search, setSearch] = useState("");
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
   const [page, setPage] = useState(0);
+  const [viewMode, setViewMode] = useState<ViewMode>(readViewMode);
+
+  const cycleViewMode = (mode: ViewMode) => {
+    setViewMode(mode);
+    try {
+      localStorage.setItem(VIEW_MODE_KEY, mode);
+    } catch {
+      /* ignore persistence errors (private mode, etc.) */
+    }
+  };
 
   const countries = useMemo(() => {
     const countMap = new Map<string, number>();
@@ -92,89 +120,131 @@ export function FoundryTable() {
             </button>
           ))}
         </div>
-        <input
-          className="w-full rounded-full border border-border bg-background px-4 py-2 text-foreground text-sm placeholder:text-muted-foreground focus:outline-none"
-          onChange={(e) => handleSearch(e.target.value)}
-          placeholder="Search foundries..."
-          type="text"
-          value={search}
-        />
+        <div className="flex items-center gap-2">
+          <input
+            className="w-full flex-1 rounded-full border border-border bg-background px-4 py-2 text-foreground text-sm placeholder:text-muted-foreground focus:outline-none"
+            onChange={(e) => handleSearch(e.target.value)}
+            placeholder="Search foundries..."
+            type="text"
+            value={search}
+          />
+          <div className="flex shrink-0 items-center gap-1 rounded-full bg-muted p-1">
+            <button
+              aria-label="List view"
+              aria-pressed={viewMode === "list"}
+              className={`inline-flex h-7 w-7 items-center justify-center rounded-full transition-colors ${
+                viewMode === "list"
+                  ? "bg-foreground text-background"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+              onClick={() => cycleViewMode("list")}
+              type="button"
+            >
+              <List className="h-3.5 w-3.5" />
+            </button>
+            <button
+              aria-label="Grid view"
+              aria-pressed={viewMode === "grid"}
+              className={`inline-flex h-7 w-7 items-center justify-center rounded-full transition-colors ${
+                viewMode === "grid"
+                  ? "bg-foreground text-background"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+              onClick={() => cycleViewMode("grid")}
+              type="button"
+            >
+              <LayoutGrid className="h-3.5 w-3.5" />
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Table */}
-      <div className="overflow-hidden rounded-xl border border-border">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-border border-b bg-muted/50 text-left">
-                <th className="w-12 px-4 py-2.5 font-medium font-mono text-muted-foreground text-xs">
-                  #
-                </th>
-                <th className="px-4 py-2.5 font-medium font-mono text-muted-foreground text-xs">
-                  Name
-                </th>
-                <th className="hidden w-12 px-4 py-2.5 font-medium font-mono text-muted-foreground text-xs lg:table-cell">
-                  Flag
-                </th>
-                <th className="hidden px-4 py-2.5 font-medium font-mono text-muted-foreground text-xs md:table-cell">
-                  Description
-                </th>
-                <th className="px-4 py-2.5 text-right font-medium font-mono text-muted-foreground text-xs">
-                  Website
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {pageItems.map((foundry, index) => (
-                <tr
-                  className="border-border border-b transition-colors last:border-b-0 hover:bg-accent"
-                  key={foundry.id}
-                >
-                  <td className="px-4 py-2.5 font-mono text-muted-foreground text-xs tabular-nums">
-                    {start + index + 1}
-                  </td>
-                  <td className="px-4 py-2.5">
-                    <Link
-                      className="font-medium text-foreground transition-colors hover:text-muted-foreground"
-                      to={`/foundries/${foundry.id}`}
-                    >
-                      {foundry.name}
-                    </Link>
-                  </td>
-                  <td className="hidden px-4 py-2.5 lg:table-cell">
-                    {foundry.country ? (
-                      <CountryFlag
-                        className="h-3.5"
-                        country={foundry.country}
-                      />
-                    ) : (
-                      <span className="text-muted-foreground">—</span>
-                    )}
-                  </td>
-                  <td className="hidden max-w-[320px] px-4 py-2.5 md:table-cell">
-                    <span className="block truncate text-muted-foreground">
-                      {foundry.description || "—"}
-                    </span>
-                  </td>
-                  <td className="px-4 py-2.5 text-right">
-                    <a
-                      className="inline-flex items-center gap-1 text-muted-foreground transition-colors hover:text-foreground"
-                      href={`https://${foundry.website}`}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      <span className="hidden font-mono text-xs sm:inline">
-                        {foundry.website}
-                      </span>
-                      <ExternalLink className="h-3 w-3" />
-                    </a>
-                  </td>
+      {viewMode === "list" ? (
+        <div className="overflow-hidden rounded-xl border border-border">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-border border-b bg-muted/50 text-left">
+                  <th className="w-12 px-4 py-2.5 font-medium font-mono text-muted-foreground text-xs">
+                    #
+                  </th>
+                  <th className="px-4 py-2.5 font-medium font-mono text-muted-foreground text-xs">
+                    Name
+                  </th>
+                  <th className="hidden w-12 px-4 py-2.5 font-medium font-mono text-muted-foreground text-xs lg:table-cell">
+                    Flag
+                  </th>
+                  <th className="hidden px-4 py-2.5 font-medium font-mono text-muted-foreground text-xs md:table-cell">
+                    Description
+                  </th>
+                  <th className="px-4 py-2.5 text-right font-medium font-mono text-muted-foreground text-xs">
+                    Website
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {pageItems.map((foundry, index) => (
+                  <tr
+                    className="border-border border-b transition-colors last:border-b-0 hover:bg-accent"
+                    key={foundry.id}
+                  >
+                    <td className="px-4 py-2.5 font-mono text-muted-foreground text-xs tabular-nums">
+                      {start + index + 1}
+                    </td>
+                    <td className="px-4 py-2.5">
+                      <Link
+                        className="font-medium text-foreground transition-colors hover:text-muted-foreground"
+                        to={`/foundries/${foundry.id}`}
+                      >
+                        {foundry.name}
+                      </Link>
+                    </td>
+                    <td className="hidden px-4 py-2.5 lg:table-cell">
+                      {foundry.country ? (
+                        <CountryFlag
+                          className="h-3.5"
+                          country={foundry.country}
+                        />
+                      ) : (
+                        <span className="text-muted-foreground">—</span>
+                      )}
+                    </td>
+                    <td className="hidden max-w-[320px] px-4 py-2.5 md:table-cell">
+                      <span className="block truncate text-muted-foreground">
+                        {foundry.description || "—"}
+                      </span>
+                    </td>
+                    <td className="px-4 py-2.5 text-right">
+                      <a
+                        className="inline-flex items-center gap-1 text-muted-foreground transition-colors hover:text-foreground"
+                        href={`https://${foundry.website}`}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        <span className="hidden font-mono text-xs sm:inline">
+                          {foundry.website}
+                        </span>
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
+          {pageItems.map((foundry) => (
+            <FoundryCard
+              asset={foundryAssets[String(foundry.id)]}
+              foundry={foundry}
+              key={foundry.id}
+            />
+          ))}
+        </div>
+      )}
 
       {/* Stats + Pagination */}
       <div className="mt-3 flex flex-wrap items-center justify-between gap-3 text-muted-foreground text-xs">

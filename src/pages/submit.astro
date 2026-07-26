@@ -1,0 +1,21 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const title = "Submit a foundry · type.fish";
+const description = "Submit a type foundry to the type.fish directory.";
+---
+
+<BaseLayout title={title} description={description} noindex>
+  <section class="py-10">
+    <h1 class="mb-6 font-bold text-3xl text-foreground tracking-tight">Submit a foundry</h1>
+    <p class="max-w-2xl text-foreground/80 text-sm leading-relaxed">
+      Foundry submissions are coming soon. For now, please open an issue or pull
+      request on
+      <a
+        class="text-foreground underline underline-offset-2 hover:text-muted-foreground"
+        href="https://github.com/dingyi/type.fish"
+        rel="noopener noreferrer"
+        target="_blank">GitHub</a>.
+    </p>
+  </section>
+</BaseLayout>

@@ -1,0 +1,56 @@
+---
+// Top navigation. Server-rendered; active-link state computed from the current
+// URL path + license query param (the Open Source preset). No client JS.
+const { pathname, searchParams } = Astro.url;
+const license = searchParams.get("license");
+
+const navItems = [
+  { label: "Foundry", path: "/" },
+  { label: "Typefaces", path: "/typefaces" },
+  { label: "Open Source", path: "/typefaces?license=open-source" },
+  { label: "Designers", path: "/designers" },
+  { label: "About", path: "/about" },
+] as const;
+
+function isActive(path: string): boolean {
+  if (path === "/typefaces?license=open-source") {
+    return pathname === "/typefaces" && license === "open-source";
+  }
+  if (path === "/typefaces") {
+    return pathname === "/typefaces" && license !== "open-source";
+  }
+  return pathname === path;
+}
+---
+
+<header class="pt-10 pb-6">
+  <div class="flex items-center justify-between gap-4">
+    <!-- Brand: div, not h1 — the page's single H1 belongs to the page content. -->
+    <a href="/" class="font-semibold text-base text-foreground tracking-tight">
+      type.fish
+    </a>
+    <nav class="flex items-center gap-1">
+      {
+        navItems.map((item) => (
+          <a
+            class={`rounded-full px-3 py-1 text-sm transition-colors ${
+              isActive(item.path)
+                ? "bg-foreground text-background"
+                : "text-muted-foreground hover:bg-muted hover:text-foreground"
+            }`}
+            href={item.path}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <a
+        class="ml-2 rounded-full bg-foreground px-3 py-1 text-background text-sm transition-colors hover:bg-foreground/85"
+        href="/submit"
+      >
+        Submit
+      </a>
+    </nav>
+  </div>
+  <hr class="mt-6 border-border" />
+</header>

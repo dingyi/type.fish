@@ -1,5 +1,4 @@
 import type { ComponentProps } from "react";
-import { Link } from "react-router-dom";
 import type { Foundry } from "@/data/foundries";
 import type { FoundryAsset } from "@/data/foundry-assets";
 import { cn } from "@/lib/utils";
@@ -45,7 +44,7 @@ function luminance(hex: string): number {
 type FoundryCardProps = {
   asset?: FoundryAsset;
   foundry: Foundry;
-} & Omit<ComponentProps<typeof Link>, "to">;
+} & Omit<ComponentProps<"a">, "href">;
 
 export function FoundryCard({
   asset,
@@ -58,15 +57,15 @@ export function FoundryCard({
   const fgClass = dark ? "text-white" : "text-black";
 
   return (
-    <Link
+    <a
       className={cn(
         "group/card relative flex aspect-square items-center justify-center overflow-hidden rounded-lg p-2 transition-transform hover:scale-[1.03]",
         fgClass,
         className
       )}
+      href={`/foundries/${foundry.id}`}
       style={{ backgroundColor: bg }}
       title={foundry.name}
-      to={`/foundries/${foundry.id}`}
       {...props}
     >
       {asset?.favicon ? (
@@ -84,6 +83,6 @@ export function FoundryCard({
           {foundry.name}
         </span>
       )}
-    </Link>
+    </a>
   );
 }

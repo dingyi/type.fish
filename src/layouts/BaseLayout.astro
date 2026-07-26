@@ -1,0 +1,104 @@
+---
+import "@/index.css";
+import Footer from "@/components/Footer.astro";
+import HeroNav from "@/components/HeroNav.astro";
+
+interface Props {
+  /** Path relative to site root, used to build the canonical URL. Defaults to the current path. */
+  canonicalPath?: string;
+  description: string;
+  /** Structured data object rendered as JSON-LD. */
+  jsonLd?: Record<string, unknown>;
+  /** When true, adds <meta name="robots" content="noindex"> — for stub/private pages. */
+  noindex?: boolean;
+  /** Absolute or root-relative OG image URL. Falls back to the default og-image.png. */
+  ogImage?: string;
+  title: string;
+}
+
+const {
+  title,
+  description,
+  canonicalPath = Astro.url.pathname,
+  ogImage = "/og-image.png",
+  jsonLd,
+  noindex = false,
+} = Astro.props;
+
+const canonical = new URL(canonicalPath, Astro.site).href;
+const ogImageUrl = new URL(ogImage, Astro.site).href;
+const gitDate = import.meta.env.PUBLIC_GIT_DATE as string;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="type.fish" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    {noindex && <meta name="robots" content="noindex" />}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:site_name" content="type.fish" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- Fonts: preconnect for performance, then load -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Structured data -->
+    {jsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
+
+    <!-- Privacy-friendly analytics -->
+    <script
+      is:inline
+      async
+      src="https://data.dex.group/js/pa-ZqKqlwpGeg1FLQLvoRjDV.js"
+    />
+    <script is:inline>
+      window.plausible =
+        window.plausible ||
+        function () {
+          (plausible.q = plausible.q || []).push(arguments);
+        };
+      plausible.init =
+        plausible.init ||
+        function (options) {
+          plausible.o = options || {};
+        };
+      plausible.init();
+    </script>
+  </head>
+  <body>
+    <div class="min-h-screen bg-background">
+      <div class="container mx-auto max-w-[1458px] px-4">
+        <HeroNav />
+        <main class="pb-10">
+          <slot />
+        </main>
+      </div>
+      <Footer />
+    </div>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const title = "Page not found · type.fish";
+const description = "The page you were looking for does not exist.";
+---
+
+<BaseLayout title={title} description={description} noindex>
+  <section class="py-20 text-center">
+    <h1 class="mb-4 font-bold text-6xl text-foreground tracking-tight">404</h1>
+    <p class="mb-6 text-muted-foreground">Page not found.</p>
+    <a
+      class="inline-flex items-center rounded-full bg-foreground px-4 py-1.5 text-background text-xs hover:bg-foreground/85"
+      href="/">Back to type.fish</a>
+  </section>
+</BaseLayout>

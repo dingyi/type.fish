@@ -1,0 +1,10 @@
+---
+const gitDate = import.meta.env.PUBLIC_GIT_DATE as string;
+const year = new Date(gitDate).getFullYear();
+---
+
+<footer class="mt-12 border-border border-t py-6">
+  <div class="container mx-auto px-4 text-center text-muted-foreground text-xs">
+    <p>type.fish · Built for type lovers</p>
+  </div>
+</footer>

@@ -11,9 +11,6 @@
       }
     }
   },
-  "javascript": {
-    "globals": ["__GIT_LAST_COMMIT_DATE__"]
-  },
   "linter": {
     "rules": {
       "performance": {
@@ -35,64 +32,29 @@
   },
   "overrides": [
     {
-      "includes": ["src/components/ui/*.tsx", "src/hooks/*.{ts,tsx}"],
+      // Astro frontmatter is fenced TS; Biome does not parse the markup below
+      // it, so variables used only in the template read as unused. Disable those.
+      "includes": ["**/*.astro"],
       "linter": {
         "rules": {
-          "performance": {
-            "noNamespaceImport": "off",
-            "noBarrelFile": "off"
-          },
           "correctness": {
-            "noNestedComponentDefinitions": "off",
+            "noUnusedVariables": "off",
+            "noUnusedImports": "off",
             "useExhaustiveDependencies": "off"
           },
-          "a11y": {
-            "useFocusableInteractive": "off",
-            "useSemanticElements": "off",
-            "useAriaPropsForRole": "off",
-            "noRedundantRoles": "off",
-            "noNoninteractiveElementInteractions": "off",
-            "useKeyWithClickEvents": "off",
-            "noLabelWithoutControl": "off"
-          },
-          "style": {
-            "useConsistentTypeDefinitions": "off",
-            "noExportedImports": "off",
-            "useDefaultSwitchClause": "off",
-            "noNestedTernary": "off"
-          },
-          "complexity": {
-            "noForEach": "off",
-            "noExcessiveCognitiveComplexity": "off"
-          },
-          "security": {
-            "noDangerouslySetInnerHtml": "off"
-          },
           "suspicious": {
-            "noDocumentCookie": "off",
-            "noArrayIndexKey": "off",
-            "noDoubleEquals": "off",
-            "noEqualsToNull": "off",
+            "useAwait": "off",
             "noShadow": "off"
           }
         }
       }
     },
     {
-      "includes": ["index.html"],
+      // Generated data files — do not lint or reformat by hand.
+      "includes": ["src/data/foundry-bridge.ts"],
       "linter": {
         "rules": {
-          "complexity": {
-            "noArguments": "off",
-            "useArrowFunction": "off"
-          },
-          "correctness": {
-            "noUndeclaredVariables": "off"
-          },
-          "suspicious": {
-            "noAssignInExpressions": "off",
-            "useStrictMode": "off"
-          }
+          "performance": "off"
         }
       }
     }

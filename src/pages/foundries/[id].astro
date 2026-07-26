@@ -1,0 +1,115 @@
+---
+import { CountryFlag } from "@/components/CountryFlag.tsx";
+import { foundries } from "@/data/foundries";
+import { foundrySlugByLocalId } from "@/data/foundry-bridge";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import indexMaps from "../../../public/data/index-maps.json";
+import typefacesData from "../../../public/data/typefaces.json";
+
+export async function getStaticPaths() {
+  return foundries.map((foundry) => ({
+    params: { id: String(foundry.id) },
+    props: { foundry },
+  }));
+}
+
+interface Props {
+  foundry: (typeof foundries)[number];
+}
+const { foundry } = Astro.props;
+
+// Resolve typefaces for this foundry via the identity bridge.
+const slug = foundrySlugByLocalId[foundry.id];
+const typefaceIds = slug ? (indexMaps.byFoundry[slug] ?? []) : [];
+const foundryTypefaces = typefaceIds
+  .map((id) => typefacesData.find((t) => t.id === id))
+  .filter((t): t is (typeof typefacesData)[number] => Boolean(t));
+
+const title = `${foundry.name} · type.fish`;
+const description =
+  foundry.description ??
+  `${foundry.name} — a type foundry${foundry.country ? ` from ${foundry.country}` : ""}.`;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: foundry.name,
+  ...(foundry.description ? { description: foundry.description } : {}),
+  ...(foundry.country
+    ? { address: { "@type": "PostalAddress", addressCountry: foundry.country } }
+    : {}),
+  ...(foundry.founded ? { foundingDate: foundry.founded } : {}),
+  url: foundry.website ? `https://${foundry.website}` : undefined,
+};
+---
+
+<BaseLayout title={title} description={description} jsonLd={jsonLd}>
+  <a class="mb-6 inline-flex items-center gap-1 font-mono text-muted-foreground text-xs hover:text-foreground" href="/">
+    ← All foundries
+  </a>
+
+  <header class="space-y-3">
+    <div class="flex flex-wrap items-center gap-3">
+      <h1 class="font-bold text-3xl text-foreground tracking-tight">{foundry.name}</h1>
+      {foundry.country && (
+        <span class="inline-flex items-center gap-1.5 rounded-full bg-muted px-3 py-1 text-muted-foreground text-xs">
+          <CountryFlag country={foundry.country} client:load />
+          {foundry.country}
+        </span>
+      )}
+      <span class="rounded-full bg-muted px-3 py-1 font-mono text-muted-foreground text-xs uppercase">
+        {foundry.category}
+      </span>
+    </div>
+    {foundry.description && (
+      <p class="max-w-2xl text-foreground/80 text-sm leading-relaxed">{foundry.description}</p>
+    )}
+    <div class="flex flex-wrap items-center gap-4 font-mono text-muted-foreground text-xs">
+      {foundry.founded && <span>Founded {foundry.founded}</span>}
+      {foundry.website && (
+        <a class="inline-flex items-center gap-1 text-foreground underline-offset-2 hover:underline" href={`https://${foundry.website}`} rel="noopener noreferrer" target="_blank">
+          {foundry.website} ↗
+        </a>
+      )}
+    </div>
+  </header>
+
+  <hr class="border-border my-8" />
+
+  {foundry.notableFonts && foundry.notableFonts.length > 0 && (
+    <section class="mb-10">
+      <p class="mb-3 font-medium font-mono text-muted-foreground text-xs tracking-tight">Notable fonts</p>
+      <div class="flex flex-wrap gap-1.5">
+        {foundry.notableFonts.map((font) => (
+          <span class="rounded-full bg-muted px-3 py-1 text-muted-foreground text-xs">{font}</span>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section>
+    <p class="mb-3 font-medium font-mono text-muted-foreground text-xs tracking-tight">
+      Typefaces in the catalogue
+    </p>
+    {!slug && <p class="text-muted-foreground text-sm">type.fish has not yet linked this foundry to its typeface detail records.</p>}
+    {slug && foundryTypefaces.length === 0 && (
+      <p class="text-muted-foreground text-sm">No typeface details recorded for this foundry yet.</p>
+    )}
+    {foundryTypefaces.length > 0 && (
+      <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {foundryTypefaces.slice(0, 24).map((t) => (
+          <a class="flex flex-col gap-2 rounded-xl border border-border bg-card p-3 hover:bg-accent" href={`/typefaces/${t.id}`}>
+            {t.previewImage ? (
+              <img class="h-14 w-full rounded bg-muted object-cover" height="56" width="300" loading="lazy" src={t.previewImage} alt={t.name} />
+            ) : (
+              <div class="flex h-14 items-center justify-center rounded bg-muted/60">
+                <span class="font-mono text-muted-foreground/50 text-xs">{t.classification}</span>
+              </div>
+            )}
+            <span class="font-medium text-foreground text-xs">{t.name}</span>
+          </a>
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>

@@ -1,0 +1,36 @@
+---
+import { DesignerGrid } from "@/components/islands/DesignerGrid.tsx";
+import { designers } from "@/data/designers";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+// Precompute the country facet at build time.
+const countries = (() => {
+  const countMap = new Map<string, number>();
+  for (const d of designers) {
+    const c = d.country || "Unknown";
+    countMap.set(c, (countMap.get(c) || 0) + 1);
+  }
+  return [...countMap.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .map(([name, count]) => ({ name, count }));
+})();
+
+const title = "Type Designers · type.fish";
+const description =
+  "Browse type designers catalogued on type.fish — from contemporary practitioners to historical figures.";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Type Designers",
+  description,
+  url: "https://type.fish/designers",
+};
+---
+
+<BaseLayout title={title} description={description} jsonLd={jsonLd}>
+  <section class="pt-2 pb-6">
+    <h1 class="font-bold text-3xl text-foreground tracking-tight">Designers</h1>
+  </section>
+  <DesignerGrid client:load designers={designers} countries={countries} />
+</BaseLayout>

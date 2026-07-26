@@ -1,0 +1,118 @@
+---
+import { localIdByFoundrySlug } from "@/data/foundry-bridge";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import typefacesData from "../../../public/data/typefaces.json";
+
+export async function getStaticPaths() {
+  return typefacesData.map((typeface) => ({
+    params: { slug: typeface.id },
+    props: { typeface },
+  }));
+}
+
+interface Props {
+  typeface: (typeof typefacesData)[number];
+}
+const { typeface } = Astro.props;
+
+const localFoundryId = localIdByFoundrySlug[typeface.foundryId];
+
+const title = `${typeface.name} · type.fish`;
+const description =
+  typeface.description ??
+  `${typeface.name} — a ${typeface.classification} typeface.`;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: typeface.name,
+  ...(typeface.description ? { description: typeface.description } : {}),
+  ...(typeface.releaseYear
+    ? { datePublished: String(typeface.releaseYear) }
+    : {}),
+  ...(typeface.foundryId
+    ? { publisher: { "@type": "Organization", name: typeface.foundryId } }
+    : {}),
+  ...(typeface.scripts.length > 0 ? { inLanguage: typeface.scripts } : {}),
+  license: typeface.isOpenSource
+    ? "https://opensource.org/licenses/OFL-1.1"
+    : undefined,
+};
+---
+
+<BaseLayout title={title} description={description} jsonLd={jsonLd}>
+  <a class="mb-6 inline-flex items-center gap-1 font-mono text-muted-foreground text-xs hover:text-foreground" href="/typefaces">
+    ← All typefaces
+  </a>
+
+  <div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
+    {/* Specimen */}
+    <div class="lg:col-span-2">
+      {typeface.previewImage ? (
+        <img class="w-full rounded-xl border border-border object-cover" height="500" width="800" src={typeface.previewImage} alt={typeface.name} />
+      ) : (
+        <div class="flex aspect-[2/1] items-center justify-center rounded-xl border border-border bg-muted/40">
+          <span class="font-mono text-4xl text-foreground/40">{typeface.name}</span>
+        </div>
+      )}
+    </div>
+
+    {/* Metadata */}
+    <div class="space-y-6">
+      <div>
+        <div class="mb-1 flex items-center gap-2">
+          <h1 class="font-bold text-2xl text-foreground tracking-tight">{typeface.name}</h1>
+          {typeface.isOpenSource && (
+            <span class="rounded-full bg-foreground/10 px-2 py-0.5 font-mono text-[10px] tracking-wider text-foreground/70 uppercase">
+              Open Source
+            </span>
+          )}
+        </div>
+        <p class="font-mono text-muted-foreground text-xs">
+          {typeface.classification}{typeface.isVariable && " · variable"}{typeface.hasItalic && " · italic"}{typeface.releaseYear && ` · ${typeface.releaseYear}`}
+        </p>
+      </div>
+
+      {typeface.description && (
+        <p class="text-foreground/80 text-sm leading-relaxed">{typeface.description}</p>
+      )}
+
+      <dl class="space-y-3 font-mono text-xs">
+        <div class="flex items-baseline justify-between gap-4 border-border border-b pb-2">
+          <dt class="text-muted-foreground/60 uppercase">Foundry</dt>
+          <dd class="text-right">
+            {localFoundryId ? (
+              <a class="text-foreground underline-offset-2 hover:underline" href={`/foundries/${localFoundryId}`}>
+                {typeface.foundryId}
+              </a>
+            ) : (
+              <span class="text-muted-foreground">{typeface.foundryId}</span>
+            )}
+          </dd>
+        </div>
+        {typeface.designerIds.length > 0 && (
+          <div class="flex items-baseline justify-between gap-4 border-border border-b pb-2">
+            <dt class="text-muted-foreground/60 uppercase">Designers</dt>
+            <dd class="text-right text-muted-foreground">{typeface.designerIds.join(", ")}</dd>
+          </div>
+        )}
+        {typeface.scripts.length > 0 && (
+          <div class="flex items-baseline justify-between gap-4 border-border border-b pb-2">
+            <dt class="text-muted-foreground/60 uppercase">Scripts</dt>
+            <dd class="text-right text-muted-foreground">{typeface.scripts.join(", ")}</dd>
+          </div>
+        )}
+        {typeface.specimenUrl && (
+          <div class="flex items-baseline justify-between gap-4 border-border border-b pb-2">
+            <dt class="text-muted-foreground/60 uppercase">Specimen</dt>
+            <dd class="text-right">
+              <a class="inline-flex items-center gap-1 text-foreground underline-offset-2 hover:underline" href={typeface.specimenUrl} rel="noopener noreferrer" target="_blank">
+                View ↗
+              </a>
+            </dd>
+          </div>
+        )}
+      </dl>
+    </div>
+  </div>
+</BaseLayout>

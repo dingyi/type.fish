@@ -1,0 +1,19 @@
+biome.jsonc
+  s_2fc4ba68ef6242::t_ade1b4cfe09ac9 35-37,41-42,46,53-54,57
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.16",
+  "base_commit_sha": "c4cfa4ff72dd351aa250470d604eed40c8d7b28a",
+  "prompts": {},
+  "sessions": {
+    "s_2fc4ba68ef6242": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f888b-3f82-73f3-b2a9-0126d5815c0a",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Ding Yi <dingyimac@gmail.com>"
+    }
+  }
+}

@@ -1753,10 +1753,16 @@ export const designers: Designer[] = [
   },
   {
     name: "Sabina Chipară",
-    country: "Unknown",
-    workCount: 9,
-    foundryCount: 1,
-    foundries: ["Indian Type Foundry"],
+    country: "Netherlands",
+    workCount: 12,
+    foundryCount: 4,
+    foundries: [
+      "Indian Type Foundry",
+      "Brutal Types",
+      "Laura Meseguer",
+      "Serpentype",
+    ],
+    bio: "Font designer and developer born in Romania, studied graphic design in Bucharest and completed a master's in advanced ty",
   },
   {
     name: "Sara Soskolne",
@@ -2991,11 +2997,11 @@ export const designers: Designer[] = [
   },
   {
     name: "Jérémy Landes",
-    country: "Unknown",
-    workCount: 5,
+    country: "Germany",
+    workCount: 6,
     foundryCount: 3,
-    foundries: ["NaN", "Studio Triple", "Velvetyne"],
-    bio: "Designer & Foundry Support",
+    foundries: ["Studio Triple", "Velvetyne", "Frank Adebiaye & Studio Triple"],
+    bio: "Jérémy Landes is a type designer who leads Studio Triple, providing type-oriented art direction from Berlin. He contribu",
   },
   {
     name: "Kai Bernau",
@@ -4262,9 +4268,9 @@ export const designers: Designer[] = [
   {
     name: "Fátima Lázaro",
     country: "Mexico",
-    workCount: 3,
+    workCount: 4,
     foundryCount: 3,
-    foundries: ["NaN", "Bretagne type foundry", "205TF"],
+    foundries: ["Bretagne type foundry", "205TF", "Studio Triple"],
     bio: "Designer and art director based in Mexico City, focused on branding, typography, and independent magazines. Emphasizes s",
   },
   {
@@ -4588,9 +4594,9 @@ export const designers: Designer[] = [
   {
     name: "Margot Lévêque",
     country: "United States",
-    workCount: 3,
-    foundryCount: 1,
-    foundries: ["Claude Type"],
+    workCount: 4,
+    foundryCount: 3,
+    foundries: ["Claude Type", "WiseType", "Margot Lévêque"],
     bio: "Margot Lévêque is a French type designer and founder of Claude Type, an intimate typographic maison specializing in cust",
   },
   {
@@ -4863,14 +4869,6 @@ export const designers: Designer[] = [
     foundryCount: 1,
     foundries: ["Tortilla.studio"],
     bio: "Mexican type designer, programmer, and letterer based in Mexico City. Founder of Tortilla.studio, she holds a bachelor's",
-  },
-  {
-    name: "Sabina Chipară",
-    country: "Netherlands",
-    workCount: 3,
-    foundryCount: 3,
-    foundries: ["Brutal Types", "Laura Meseguer", "Serpentype"],
-    bio: "Font designer and developer born in Romania, studied graphic design in Bucharest and completed a master's in advanced ty",
   },
   {
     name: "Sijya Gupta",
@@ -6579,9 +6577,9 @@ export const designers: Designer[] = [
   {
     name: "Ruggero Magrì",
     country: "Italy",
-    workCount: 2,
-    foundryCount: 2,
-    foundries: ["David Jonathan Ross", "Newlyn"],
+    workCount: 3,
+    foundryCount: 3,
+    foundries: ["David Jonathan Ross", "Newlyn", "Furniture"],
     bio: "Independent type designer and lettering artist from Italy. Has drawn typefaces for foundries including Typotheque, Dinam",
   },
   {
@@ -8949,14 +8947,6 @@ export const designers: Designer[] = [
     bio: "Type foundry creating identity systems and custom typefaces for brands including Anthropic, Apple, Nike, Google, and Lul",
   },
   {
-    name: "Fátima Lázaro",
-    country: "France",
-    workCount: 1,
-    foundryCount: 1,
-    foundries: ["Studio Triple"],
-    bio: "Mexican typeface and graphic designer based between Paris, France and Mexico City. She graduated from EsadType in Amiens",
-  },
-  {
     name: "Gabriel Dubourg",
     country: "France",
     workCount: 1,
@@ -9422,13 +9412,6 @@ export const designers: Designer[] = [
     foundryCount: 1,
     foundries: ["Tipo Pèpel"],
     bio: "Brazilian type designer (full name Iza Wilma Lima Peixoto) who shares development activities at Intellecta Design with P",
-  },
-  {
-    name: "İbrahim Kaçtıoğlu",
-    country: "Unknown",
-    workCount: 1,
-    foundryCount: 3,
-    foundries: ["Element Type Foundry", "205TF", "Element Type"],
   },
   {
     name: "Jaakko Suomalainen in",
@@ -9899,14 +9882,6 @@ export const designers: Designer[] = [
     foundryCount: 1,
     foundries: ["Velvetyne"],
     bio: "French independent art director, graphic and type designer. Graduated from EESAB Rennes, she continues her practice of t",
-  },
-  {
-    name: "Jérémy Landes",
-    country: "Germany",
-    workCount: 1,
-    foundryCount: 3,
-    foundries: ["Velvetyne", "Studio Triple", "Frank Adebiaye & Studio Triple"],
-    bio: "Jérémy Landes is a type designer who leads Studio Triple, providing type-oriented art direction from Berlin. He contribu",
   },
   {
     name: "Jürgen Schwarz in",
@@ -10535,14 +10510,6 @@ export const designers: Designer[] = [
     foundryCount: 2,
     foundries: ["Displaay Type Foundry", "Superior Type"],
     bio: "Czech graphic designer and typographer who studied at the Academy of Arts, Architecture and Design (AAAD) in Prague unde",
-  },
-  {
-    name: "Margot Lévêque",
-    country: "United States",
-    workCount: 1,
-    foundryCount: 3,
-    foundries: ["WiseType", "Margot Lévêque", "Claude Type"],
-    bio: "Margot Lévêque is a French type designer who founded Claude Type, an intimate typographic maison that treats typography ",
   },
   {
     name: "Maria Doreuli Team",
@@ -12106,14 +12073,6 @@ export const designers: Designer[] = [
     foundryCount: 2,
     foundries: ["General Type Studio"],
     bio: "German calligrapher, type designer, and teacher (1876-1934), one of the most important figures in 20th century German ty",
-  },
-  {
-    name: "Ruggero Magrì",
-    country: "Italy",
-    workCount: 1,
-    foundryCount: 1,
-    foundries: ["Furniture"],
-    bio: "Independent type designer and lettering artist from Italy. Has drawn typefaces for several international type foundries ",
   },
   {
     name: "Rustam Gabbasov",

@@ -176,7 +176,7 @@ def extract_color(png: Path) -> str | None:
         return None
 
     counter: Counter[tuple[int, int, int]] = Counter()
-    for r, g, b, a in img.get_flattened_data():
+    for r, g, b, a in img.getdata():
         if a < 128:
             continue
         # Quantize each channel to a 16-step bucket so similar colors merge.

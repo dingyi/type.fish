@@ -21,7 +21,7 @@ const HEX_RE = /^#?([0-9a-f]{6})$/i;
 
 /** Pull one byte out of a packed RGB integer using arithmetic, not bitwise. */
 function byte(packed: number, shift: number): number {
-  return Math.floor(packed / 256 ** shift) % 256;
+  return Math.floor(packed / 2 ** shift) % 256;
 }
 
 /**

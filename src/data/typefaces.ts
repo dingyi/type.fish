@@ -1,8 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
-
 // The typeface catalogue (~15k records, ~7MB) is emitted as JSON by
-// scripts/ingest_typefaces.py into public/data/ and lazy-loaded on the
-// /typefaces route so it never enters the initial bundle. See
+// scripts/ingest_typefaces.py into public/data/ and imported at build time by
+// Astro pages. See
 // docs/adr/0001-type-lol-as-sole-source.md.
 
 export type TypefaceClassification =
@@ -39,34 +37,4 @@ export interface TypefacesIndex {
   byDesigner: Record<string, string[]>;
   /** foundryId -> typeface ids published by that foundry. */
   byFoundry: Record<string, string[]>;
-}
-
-/** All typefaces. Fetched once per session; React Query caches it. */
-export function useTypefaces() {
-  return useQuery<Typeface[]>({
-    queryKey: ["typefaces"],
-    queryFn: async () => {
-      const res = await fetch("/data/typefaces.json");
-      if (!res.ok) {
-        throw new Error(`Failed to load typefaces: ${res.status}`);
-      }
-      return res.json() as Promise<Typeface[]>;
-    },
-    staleTime: Number.POSITIVE_INFINITY,
-  });
-}
-
-/** Reverse indexes. Loaded alongside the catalogue. */
-export function useTypefacesIndex() {
-  return useQuery<TypefacesIndex>({
-    queryKey: ["typefaces-index"],
-    queryFn: async () => {
-      const res = await fetch("/data/index-maps.json");
-      if (!res.ok) {
-        throw new Error(`Failed to load typeface index: ${res.status}`);
-      }
-      return res.json() as Promise<TypefacesIndex>;
-    },
-    staleTime: Number.POSITIVE_INFINITY,
-  });
 }

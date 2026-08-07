@@ -29,7 +29,7 @@ MAX_PER_SITEMAP = 10000
 
 def slugify_name(name: str) -> str:
     s = name.lower()
-    s = re.sub(r"[^\w\s-]", "", s)
+    s = re.sub(r"[^a-z0-9\s-]", "", s)
     s = re.sub(r"[\s_-]+", "-", s)
     return s.strip("-")
 

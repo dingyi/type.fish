@@ -48,6 +48,17 @@ not by raw name string — raw names are ambiguous and not URL-safe.
 
 - Browsed at `/designers`; detail at `/designers/:slug`.
 
+### Tool
+
+Software for working with type, listed as an external product with its own
+website — it is neither a Foundry nor a Typeface. Two groupings: a *manager*
+helps browse, organise and activate installed fonts (e.g. RightFont, Typeface,
+FontBase); an *editor* is used to draw and produce Typefaces (e.g. FontLab).
+Tools are curated rather than exhaustively catalogued, and carry a platform
+list (macOS / Windows / Linux / Web).
+
+- Browsed at `/tools`; entries link out to the tool's own site (no detail pages).
+
 ### License
 
 The legal terms under which a Typeface is distributed. type.fish cares about

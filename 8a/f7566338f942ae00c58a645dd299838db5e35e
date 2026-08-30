@@ -1,0 +1,41 @@
+public/data/tool-assets.json
+  s_eadd2856dac3a1::t_c43575d48eb163 1
+package.json
+  s_2a258e8eac9492::t_b135ce08d400b8 20,27-28,30,32-33,37
+CONTEXT.md
+  s_eadd2856dac3a1::t_032559b365593d 53-61
+src/data/tools.ts
+  s_eadd2856dac3a1::t_2305a0569cdf59 51-57,76
+  s_eadd2856dac3a1::t_032559b365593d 2-3,58-75,77
+src/pages/typefaces.astro
+  s_2a258e8eac9492::t_8c13ad00d65dd7 3,7-8,39
+src/pages/tools.astro
+  s_eadd2856dac3a1::t_032559b365593d 10,13-18,22,62-63
+  s_eadd2856dac3a1::t_2305a0569cdf59 9,60-61
+bun.lock
+  s_2a258e8eac9492::t_0354f2c62eeed2 11,18-19,21,23-24,28,37,39,41,43,45,47,49,51,53,55,57,59,63,67,111,113,115,117,119,121,123,125,127,129,131,133,135,137,139,141,143,145,227,229,231,233,235,237,239,241,243,245,247,249,251,253,255,257,259,261,263,265,267,269,271,273,275,277,403,407,445,453,535,557,593,697,749,835,843,901,907-908,915,1007-1009
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "8af7566338f942ae00c58a645dd299838db5e35e",
+  "prompts": {},
+  "sessions": {
+    "s_2a258e8eac9492": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fd868-a31c-7d72-b030-4964e07e9f48",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Ding Yi <dingyimac@gmail.com>"
+    },
+    "s_eadd2856dac3a1": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f8931-ef65-7763-8ea4-7dd7dc6071b8",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Ding Yi <dingyimac@gmail.com>"
+    }
+  }
+}

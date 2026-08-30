@@ -1,7 +1,10 @@
 ---
 import { TypefaceGrid } from "@/components/islands/TypefaceGrid.tsx";
+import type { Typeface } from "@/data/typefaces";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import typefacesData from "../../public/data/typefaces.json";
+
+const typefaces = typefacesData as Typeface[];
 
 const isOpenSource = Astro.url.searchParams.get("license") === "open-source";
 
@@ -33,5 +36,5 @@ const jsonLd = {
       </p>
     )}
   </section>
-  <TypefaceGrid client:load typefaces={typefacesData} />
+  <TypefaceGrid client:load typefaces={typefaces} />
 </BaseLayout>

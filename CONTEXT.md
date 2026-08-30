@@ -50,12 +50,15 @@ not by raw name string — raw names are ambiguous and not URL-safe.
 
 ### Tool
 
-Software for working with type, listed as an external product with its own
-website — it is neither a Foundry nor a Typeface. Two groupings: a *manager*
-helps browse, organise and activate installed fonts (e.g. RightFont, Typeface,
-FontBase); an *editor* is used to draw and produce Typefaces (e.g. FontLab).
-Tools are curated rather than exhaustively catalogued, and carry a platform
-list (macOS / Windows / Linux / Web).
+Software, resources and creative references for working with type, listed as
+external products with their own websites — they are neither Foundries nor
+Typefaces. Four groupings: a *manager* helps browse, organise and activate
+installed fonts (e.g. RightFont, Typeface, FontBase); an *editor* is used to
+draw and produce Typefaces (e.g. FontLab); a *resource* helps discover
+Typefaces (e.g. UNCUT.wtf); *inspiration* shows typography in practice through
+studio work and case studies (e.g. RNDR Realm, Oddfellows). Entries are curated
+rather than exhaustively catalogued, and carry a platform list (macOS / Windows
+/ Linux / Web).
 
 - Browsed at `/tools`; entries link out to the tool's own site (no detail pages).
 

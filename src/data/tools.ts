@@ -1,6 +1,6 @@
 export interface FontTool {
-  /** Grouping on /tools: managers organise fonts, editors draw them, resources surface them, inspiration shows type in practice. */
-  category: "manager" | "editor" | "resource" | "inspiration";
+  /** Grouping on /tools: managers organise fonts, editors draw them, resources help discover them. */
+  category: "manager" | "editor" | "resource";
   name: string;
   platforms: string[];
   /** URL-safe id, also the favicon filename stem. */
@@ -49,30 +49,21 @@ export const tools: FontTool[] = [
     platforms: ["macOS", "Windows"],
   },
   {
+    slug: "shift",
+    name: "Shift",
+    tagline:
+      "A free, open-source font editor built with TypeScript and Rust. Cross-platform and currently in active alpha development.",
+    website: "https://www.shift.graphics/",
+    category: "editor",
+    platforms: ["Windows", "Linux"],
+  },
+  {
     slug: "uncut-wtf",
     name: "UNCUT.wtf",
     tagline:
       "A free catalogue of somewhat contemporary typefaces, all available to download for commercial use.",
     website: "https://uncut.wtf/",
     category: "resource",
-    platforms: ["Web"],
-  },
-  {
-    slug: "rndr-realm",
-    name: "RNDR Realm",
-    tagline:
-      "A creative studio designing and developing digital products for early-stage startups, from brand identity and UI to production-ready code.",
-    website: "https://www.rndrealm.com/",
-    category: "inspiration",
-    platforms: ["Web"],
-  },
-  {
-    slug: "oddfellows-replit",
-    name: "Oddfellows · Replit",
-    tagline:
-      "A brand anthem for builders, combining graphic design, intimate footage and generative imagery into a vivid motion identity.",
-    website: "https://oddfellows.tv/work/replit",
-    category: "inspiration",
     platforms: ["Web"],
   },
 ];

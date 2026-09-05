@@ -7,19 +7,13 @@ const categoryMeta: Record<FontTool["category"], { label: string }> = {
   manager: { label: "Managers" },
   editor: { label: "Editors" },
   resource: { label: "Resources" },
-  inspiration: { label: "Inspiration" },
 };
 // Section order on the page; only categories with entries render.
-const categoryOrder: FontTool["category"][] = [
-  "manager",
-  "editor",
-  "resource",
-  "inspiration",
-];
+const categoryOrder: FontTool["category"][] = ["manager", "editor", "resource"];
 
 const title = "Font Tools · type.fish";
 const description =
-  "A curated directory of font tools, resources and creative references — from managing and making type to discovering it in practice.";
+  "A curated directory of font tools and resources — managers for organising fonts, editors for producing typefaces, and catalogues for discovering them.";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -59,8 +53,7 @@ function hostOf(website: string): string {
       <p>
         A curated directory for working with type — font managers for browsing,
         organising and activating fonts, editors for drawing and producing
-        them, resources for discovering new typefaces, and creative references
-        that show typography in practice.
+        them, and resources for discovering new typefaces.
       </p>
       <p class="text-muted-foreground">
         No rankings, no sponsored entries. Suggest a missing tool on

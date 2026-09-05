@@ -6,6 +6,8 @@ export interface Foundry {
   id: number;
   name: string;
   notableFonts?: string[];
+  portfolioTitle?: string;
+  portfolioUrl?: string;
   rating?: number;
   website: string;
 }
@@ -8737,5 +8739,24 @@ export const foundries: Foundry[] = [
     country: "Nigeria",
     website: "udifoundry.com/fonts/touki-grotesk",
     category: "studio",
+  },
+  {
+    id: 983,
+    name: "RNDR Realm",
+    description:
+      "Creative studio designing and developing digital products for early-stage startups, from brand identity and UI to production-ready code.",
+    website: "rndrealm.com",
+    category: "studio",
+  },
+  {
+    id: 984,
+    name: "Oddfellows",
+    description:
+      "Visual strategy and storytelling studio shaping ambitious brands through design and motion, including a brand anthem for Replit.",
+    country: "United States",
+    website: "oddfellows.tv",
+    category: "studio",
+    portfolioTitle: "Replit — A brand anthem for builders",
+    portfolioUrl: "https://oddfellows.tv/work/replit",
   },
 ];

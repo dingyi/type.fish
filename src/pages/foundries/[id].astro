@@ -87,6 +87,22 @@ const jsonLd = {
     </section>
   )}
 
+  {foundry.portfolioTitle && foundry.portfolioUrl && (
+    <section class="mb-10">
+      <p class="mb-3 font-medium font-mono text-muted-foreground text-xs tracking-tight">
+        Selected work
+      </p>
+      <a
+        class="inline-flex w-fit items-center gap-1 text-foreground text-sm underline underline-offset-2 hover:text-muted-foreground"
+        href={foundry.portfolioUrl}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        {foundry.portfolioTitle} ↗
+      </a>
+    </section>
+  )}
+
   <section>
     <p class="mb-3 font-medium font-mono text-muted-foreground text-xs tracking-tight">
       Typefaces in the catalogue

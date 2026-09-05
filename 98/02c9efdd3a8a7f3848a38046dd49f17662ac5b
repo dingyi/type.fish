@@ -1,0 +1,35 @@
+src/pages/tools.astro
+  s_eadd2856dac3a1::t_6f806b9c935ca4 12,16,56
+public/data/tool-assets.json
+  s_eadd2856dac3a1::t_cd9ad47cb2334d 1
+public/data/foundry-assets.json
+  s_eadd2856dac3a1::t_27f79889d5ec48 1
+CONTEXT.md
+  s_eadd2856dac3a1::t_6f806b9c935ca4 53-59
+src/data/foundries.ts
+  s_eadd2856dac3a1::t_daefd1e1ec842a 9-10,8759-8760
+  s_eadd2856dac3a1::t_6f806b9c935ca4 8743-8758,8761
+src/pages/foundries/[id].astro
+  s_eadd2856dac3a1::t_6f806b9c935ca4 91-94,103-105
+  s_eadd2856dac3a1::t_daefd1e1ec842a 90,95-102
+src/data/tools.ts
+  s_eadd2856dac3a1::t_6f806b9c935ca4 2-3
+  s_eadd2856dac3a1::t_d64f1da9097285 52-59
+  s_eadd2856dac3a1::t_7dd19ebd93cdb3 51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "9802c9efdd3a8a7f3848a38046dd49f17662ac5b",
+  "prompts": {},
+  "sessions": {
+    "s_eadd2856dac3a1": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f8931-ef65-7763-8ea4-7dd7dc6071b8",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Ding Yi <dingyimac@gmail.com>"
+    }
+  }
+}

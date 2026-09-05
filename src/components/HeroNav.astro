@@ -1,24 +1,27 @@
 ---
 // Top navigation. Server-rendered; active-link state computed from the current
-// URL path + license query param (the Open Source preset). No client JS.
-const { pathname, searchParams } = Astro.url;
-const license = searchParams.get("license");
+// URL path. No client JS.
+const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
 
 const navItems = [
   { label: "Foundry", path: "/" },
   { label: "Typefaces", path: "/typefaces" },
-  { label: "Open Source", path: "/typefaces?license=open-source" },
+  { label: "Open Source", path: "/typefaces/open-source" },
   { label: "Designers", path: "/designers" },
   { label: "Tools", path: "/tools" },
   { label: "About", path: "/about" },
 ] as const;
 
 function isActive(path: string): boolean {
-  if (path === "/typefaces?license=open-source") {
-    return pathname === "/typefaces" && license === "open-source";
+  if (path === "/typefaces/open-source") {
+    return pathname === path;
   }
   if (path === "/typefaces") {
-    return pathname === "/typefaces" && license !== "open-source";
+    return (
+      pathname === path ||
+      (pathname.startsWith("/typefaces/") &&
+        pathname !== "/typefaces/open-source")
+    );
   }
   return pathname === path;
 }

@@ -59,9 +59,22 @@ const openSourceCount = typefacesData.filter((t) => t.isOpenSource).length;
 const title = "About type.fish";
 const description =
   "type.fish is an open directory of type foundries, cataloguing type design companies, studios, and independent designers from around the world.";
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  name: title,
+  description,
+  url: "https://type.fish/about/",
+  mainEntity: {
+    "@type": "WebSite",
+    name: "type.fish",
+    url: "https://type.fish/",
+    description,
+  },
+};
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} jsonLd={jsonLd}>
   {/* Intro */}
   <section class="py-10">
     <p class="mb-2 font-medium font-mono text-muted-foreground text-xs tracking-tight">
@@ -90,9 +103,9 @@ const description =
 
   {/* Stats */}
   <section class="py-10">
-    <p class="mb-6 font-medium font-mono text-muted-foreground text-xs tracking-tight">
+    <h2 class="mb-6 font-medium font-mono text-muted-foreground text-xs tracking-tight">
       Overview
-    </p>
+    </h2>
     <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
       <div class="rounded-xl border border-border bg-card p-4">
         <p class="font-bold font-mono text-2xl text-foreground tabular-nums tracking-tight">
@@ -128,9 +141,9 @@ const description =
 
   {/* Typeface coverage */}
   <section class="py-10">
-    <p class="mb-2 font-medium font-mono text-muted-foreground text-xs tracking-tight">
+    <h2 class="mb-2 font-medium font-mono text-muted-foreground text-xs tracking-tight">
       Typeface Coverage
-    </p>
+    </h2>
     <p class="mb-6 max-w-2xl text-foreground/80 text-sm leading-relaxed">
       {bridgedFoundryCount.toLocaleString("en-US")} of {total.toLocaleString("en-US")} foundries are linked to typeface detail records.
     </p>
@@ -160,7 +173,7 @@ const description =
 
   {/* Top countries */}
   <section class="py-10">
-    <p class="mb-2 font-medium font-mono text-muted-foreground text-xs tracking-tight">By Country</p>
+    <h2 class="mb-2 font-medium font-mono text-muted-foreground text-xs tracking-tight">By Country</h2>
     <p class="mb-6 max-w-2xl text-foreground/80 text-sm leading-relaxed">
       Foundries span {countryCount} countries and regions. The top entries:
     </p>
@@ -179,7 +192,7 @@ const description =
 
   {/* Categories */}
   <section class="py-10">
-    <p class="mb-6 font-medium font-mono text-muted-foreground text-xs tracking-tight">By Category</p>
+    <h2 class="mb-6 font-medium font-mono text-muted-foreground text-xs tracking-tight">By Category</h2>
     <div class="space-y-3">
       {categoryRows.map((row) => (
         <div class="flex items-center gap-3">
@@ -202,7 +215,7 @@ const description =
 
   {/* Data sources */}
   <section class="py-10">
-    <p class="mb-6 font-medium font-mono text-muted-foreground text-xs tracking-tight">Data Sources</p>
+    <h2 class="mb-6 font-medium font-mono text-muted-foreground text-xs tracking-tight">Data Sources</h2>
     <div class="max-w-2xl space-y-3 text-foreground/80 text-sm leading-relaxed">
       <p>
         Foundry data is compiled from publicly available information, with a portion

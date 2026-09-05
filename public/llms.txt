@@ -1,0 +1,26 @@
+# type.fish
+
+> type.fish is an open directory of type foundries, cataloguing type design companies, studios, and independent designers from around the world.
+
+## Core facts
+
+- The directory lists established companies, independent studios, and individual type designers on equal footing.
+- type.fish does not publish ratings or accept paid placement.
+- Foundry data is compiled from publicly available information; a portion originated from type.lol.
+- Catalogue records may include foundry, designer, classification, script, release year, variable-font support, and licensing information when available.
+
+## Important pages
+
+- [Foundries](https://type.fish/): Search and filter the type foundry directory.
+- [Typefaces](https://type.fish/typefaces/): Browse the complete typeface catalogue.
+- [Open Source Typefaces](https://type.fish/typefaces/open-source/): Browse typefaces marked as freely usable and modifiable, principally under the SIL Open Font License.
+- [Designers](https://type.fish/designers/): Browse type designers and their linked work.
+- [Tools](https://type.fish/tools/): Browse typography tools and resources.
+- [About](https://type.fish/about/): Read the directory scope, current coverage, and data-source policy.
+- [Submit or correct a listing](https://type.fish/submit/): Propose a new entry or report inaccurate information.
+
+## Source and identity
+
+- Canonical name: type.fish
+- Canonical URL: https://type.fish/
+- Public source repository: https://github.com/dingyi/type.fish

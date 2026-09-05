@@ -21,7 +21,7 @@ const countries = (() => {
 
 const title = "type.fish — Type Foundry Directory";
 const description =
-  "An open directory of type foundries from around the world — from century-old houses to one-person studios, listed on equal footing.";
+  "type.fish is an open directory of type foundries, cataloguing type design companies, studios, and independent designers from around the world.";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -29,17 +29,15 @@ const jsonLd = {
   name: "type.fish",
   url: "https://type.fish",
   description,
-  potentialAction: {
-    "@type": "SearchAction",
-    target: "https://type.fish/?q={search_term_string}",
-    "query-input": "required name=search_term_string",
-  },
 };
 ---
 
 <BaseLayout title={title} description={description} jsonLd={jsonLd}>
   <section class="pt-2 pb-6">
     <h1 class="font-bold text-3xl text-foreground tracking-tight">Foundries</h1>
+    <p class="mt-3 max-w-2xl text-foreground/80 text-sm leading-relaxed">
+      {description}
+    </p>
   </section>
   <FoundryTable
     client:load

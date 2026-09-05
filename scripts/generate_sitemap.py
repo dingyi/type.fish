@@ -68,7 +68,14 @@ def write_urlset(path: Path, urls: list[str]) -> None:
 
 def main() -> int:
     # Static top-level pages (noindex pages like /submit are intentionally excluded).
-    static = [f"{SITE}/", f"{SITE}/typefaces", f"{SITE}/designers", f"{SITE}/tools", f"{SITE}/about"]
+    static = [
+        f"{SITE}/",
+        f"{SITE}/typefaces",
+        f"{SITE}/typefaces/open-source",
+        f"{SITE}/designers",
+        f"{SITE}/tools",
+        f"{SITE}/about",
+    ]
 
     foundries = [f"{SITE}/foundries/{i}" for i in parse_foundry_ids()]
     designers = [f"{SITE}/designers/{slugify_name(n)}" for n in parse_designer_names()]

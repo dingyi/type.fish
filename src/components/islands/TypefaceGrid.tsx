@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Typeface, TypefaceClassification } from "@/data/typefaces";
 
 const PAGE_SIZE = 48;
@@ -21,25 +21,71 @@ const CLASSIFICATIONS: {
 ];
 
 interface Props {
-  typefaces: Typeface[];
+  dataUrl?: string;
+  initialOpenSource?: boolean;
+  initialTypefaces: Typeface[];
+  totalCount: number;
 }
 
-export function TypefaceGrid({ typefaces }: Props) {
-  const searchParams = new URLSearchParams(
-    typeof window === "undefined" ? "" : window.location.search
+export function TypefaceGrid({
+  dataUrl = "/data/typefaces.json",
+  initialOpenSource = false,
+  initialTypefaces,
+  totalCount,
+}: Props) {
+  const [typefaces, setTypefaces] = useState(initialTypefaces);
+  const [hasFullDataset, setHasFullDataset] = useState(
+    initialTypefaces.length >= totalCount
   );
-  const initialOpenSource = searchParams.get("license") === "open-source";
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadError, setLoadError] = useState("");
+  const loadPromise = useRef<Promise<Typeface[]> | null>(null);
   const [search, setSearch] = useState("");
   const [classification, setClassification] = useState<
     TypefaceClassification | "all"
   >("all");
   const [page, setPage] = useState(0);
-  const [openSourceOnly, setOpenSourceOnly] = useState(initialOpenSource);
+
+  useEffect(() => {
+    const legacyOpenSource =
+      new URLSearchParams(window.location.search).get("license") ===
+      "open-source";
+    if (!initialOpenSource && legacyOpenSource) {
+      window.location.replace("/typefaces/open-source/");
+    }
+  }, [initialOpenSource]);
+
+  const loadFullDataset = async (): Promise<boolean> => {
+    if (hasFullDataset) {
+      return true;
+    }
+
+    setIsLoading(true);
+    setLoadError("");
+    loadPromise.current ??= fetch(dataUrl).then(async (response) => {
+      if (!response.ok) {
+        throw new Error(`Catalogue request failed: ${response.status}`);
+      }
+      return (await response.json()) as Typeface[];
+    });
+
+    try {
+      const fullDataset = await loadPromise.current;
+      setTypefaces(fullDataset);
+      setHasFullDataset(true);
+      return true;
+    } catch {
+      loadPromise.current = null;
+      setLoadError("The full catalogue could not be loaded. Please try again.");
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const filtered = useMemo(() => {
     let result = [...typefaces].sort((a, b) => a.name.localeCompare(b.name));
-    if (openSourceOnly) {
+    if (initialOpenSource) {
       result = result.filter((t) => t.isOpenSource);
     }
     if (classification !== "all") {
@@ -55,9 +101,12 @@ export function TypefaceGrid({ typefaces }: Props) {
       );
     }
     return result;
-  }, [typefaces, openSourceOnly, classification, search]);
+  }, [typefaces, initialOpenSource, classification, search]);
 
-  const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const isUnfiltered = classification === "all" && !search.trim();
+  const resultCount =
+    hasFullDataset || !isUnfiltered ? filtered.length : totalCount;
+  const pageCount = Math.max(1, Math.ceil(resultCount / PAGE_SIZE));
   const safePage = Math.min(page, pageCount - 1);
   const start = safePage * PAGE_SIZE;
   const pageItems = filtered.slice(start, start + PAGE_SIZE);
@@ -65,15 +114,9 @@ export function TypefaceGrid({ typefaces }: Props) {
   const resetPage = () => setPage(0);
 
   const toggleOpenSource = () => {
-    const url = new URL(window.location.href);
-    if (openSourceOnly) {
-      url.searchParams.delete("license");
-    } else {
-      url.searchParams.set("license", "open-source");
-    }
-    window.history.replaceState({}, "", url);
-    setOpenSourceOnly(!openSourceOnly);
-    resetPage();
+    window.location.assign(
+      initialOpenSource ? "/typefaces/" : "/typefaces/open-source/"
+    );
   };
 
   return (
@@ -91,6 +134,7 @@ export function TypefaceGrid({ typefaces }: Props) {
               onClick={() => {
                 setClassification(c.key);
                 resetPage();
+                loadFullDataset();
               }}
               type="button"
             >
@@ -98,8 +142,9 @@ export function TypefaceGrid({ typefaces }: Props) {
             </button>
           ))}
           <button
+            aria-pressed={initialOpenSource}
             className={`ml-2 rounded-full px-3 py-1 text-xs transition-colors ${
-              openSourceOnly
+              initialOpenSource
                 ? "bg-foreground text-background"
                 : "bg-muted text-muted-foreground hover:bg-accent hover:text-foreground"
             }`}
@@ -114,12 +159,24 @@ export function TypefaceGrid({ typefaces }: Props) {
           onChange={(e) => {
             setSearch(e.target.value);
             resetPage();
+            loadFullDataset();
           }}
           placeholder="Search typefaces..."
           type="text"
           value={search}
         />
       </div>
+
+      {isLoading && (
+        <p aria-live="polite" className="mb-4 text-muted-foreground text-xs">
+          Loading the full catalogue…
+        </p>
+      )}
+      {loadError && (
+        <p aria-live="polite" className="mb-4 text-red-700 text-xs">
+          {loadError}
+        </p>
+      )}
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {pageItems.map((t) => (
@@ -166,9 +223,9 @@ export function TypefaceGrid({ typefaces }: Props) {
         <span>
           Showing{" "}
           <span className="font-mono tabular-nums">{pageItems.length}</span> /{" "}
-          <span className="font-mono tabular-nums">{filtered.length}</span>{" "}
+          <span className="font-mono tabular-nums">{resultCount}</span>{" "}
           typefaces
-          {openSourceOnly && " (open source)"}
+          {initialOpenSource && " (open source)"}
         </span>
         <div className="flex items-center gap-2">
           <button
@@ -178,7 +235,13 @@ export function TypefaceGrid({ typefaces }: Props) {
                 : "bg-muted text-muted-foreground hover:bg-accent hover:text-foreground"
             }`}
             disabled={safePage === 0}
-            onClick={() => setPage(safePage - 1)}
+            onClick={() => {
+              loadFullDataset().then((loaded) => {
+                if (loaded) {
+                  setPage(safePage - 1);
+                }
+              });
+            }}
             type="button"
           >
             <ChevronLeft className="h-3 w-3" />
@@ -194,7 +257,13 @@ export function TypefaceGrid({ typefaces }: Props) {
                 : "bg-muted text-muted-foreground hover:bg-accent hover:text-foreground"
             }`}
             disabled={safePage >= pageCount - 1}
-            onClick={() => setPage(safePage + 1)}
+            onClick={() => {
+              loadFullDataset().then((loaded) => {
+                if (loaded) {
+                  setPage(safePage + 1);
+                }
+              });
+            }}
             type="button"
           >
             Next

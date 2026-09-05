@@ -1,39 +1,90 @@
 ---
-import { localIdByFoundrySlug } from "@/data/foundry-bridge";
+import { designers } from "@/data/designers";
+import { foundries } from "@/data/foundries";
+import {
+  designerSlugByName,
+  localIdByFoundrySlug,
+} from "@/data/foundry-bridge";
+import type { Typeface } from "@/data/typefaces";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { slugifyName } from "@/lib/slug";
 import typefacesData from "../../../public/data/typefaces.json";
 
 export async function getStaticPaths() {
-  return typefacesData.map((typeface) => ({
+  return (typefacesData as Typeface[]).map((typeface) => ({
     params: { slug: typeface.id },
     props: { typeface },
   }));
 }
 
 interface Props {
-  typeface: (typeof typefacesData)[number];
+  typeface: Typeface;
 }
 const { typeface } = Astro.props;
 
 const localFoundryId = localIdByFoundrySlug[typeface.foundryId];
+const foundry = foundries.find((entry) => entry.id === localFoundryId);
+const designerNameBySourceSlug = new Map(
+  Object.entries(designerSlugByName).map(([name, slug]) => [slug, name])
+);
+const creditedDesigners = typeface.designerIds.map((id) => ({
+  id,
+  name: designerNameBySourceSlug.get(id) ?? id,
+}));
+const knownDesignerNames = new Set(designers.map((designer) => designer.name));
+
+const foundryUrl = foundry
+  ? new URL(
+      foundry.website.startsWith("http")
+        ? foundry.website
+        : `https://${foundry.website}`
+    ).href
+  : undefined;
 
 const title = `${typeface.name} · type.fish`;
 const description =
   typeface.description ??
   `${typeface.name} — a ${typeface.classification} typeface.`;
+const pageUrl = `https://type.fish/typefaces/${typeface.id}/`;
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "CreativeWork",
   name: typeface.name,
-  ...(typeface.description ? { description: typeface.description } : {}),
+  description,
+  url: pageUrl,
+  mainEntityOfPage: pageUrl,
+  genre: `${typeface.classification} typeface`,
   ...(typeface.releaseYear
     ? { datePublished: String(typeface.releaseYear) }
     : {}),
-  ...(typeface.foundryId
-    ? { publisher: { "@type": "Organization", name: typeface.foundryId } }
+  ...(foundry
+    ? {
+        publisher: {
+          "@type": "Organization",
+          name: foundry.name,
+          ...(foundryUrl ? { url: foundryUrl } : {}),
+        },
+      }
     : {}),
-  ...(typeface.scripts.length > 0 ? { inLanguage: typeface.scripts } : {}),
+  ...(creditedDesigners.length > 0
+    ? {
+        creator: creditedDesigners.map((designer) => ({
+          "@type": "Person",
+          name: designer.name,
+        })),
+      }
+    : {}),
+  ...(typeface.scripts.length > 0
+    ? {
+        additionalProperty: typeface.scripts.map((script) => ({
+          "@type": "PropertyValue",
+          name: "Writing system",
+          value: script,
+        })),
+      }
+    : {}),
+  isAccessibleForFree: typeface.isOpenSource,
   license: typeface.isOpenSource
     ? "https://opensource.org/licenses/OFL-1.1"
     : undefined,
@@ -76,6 +127,9 @@ const jsonLd = {
       {typeface.description && (
         <p class="text-foreground/80 text-sm leading-relaxed">{typeface.description}</p>
       )}
+      {!typeface.description && (
+        <p class="text-foreground/80 text-sm leading-relaxed">{description}</p>
+      )}
 
       <dl class="space-y-3 font-mono text-xs">
         <div class="flex items-baseline justify-between gap-4 border-border border-b pb-2">
@@ -83,7 +137,7 @@ const jsonLd = {
           <dd class="text-right">
             {localFoundryId ? (
               <a class="text-foreground underline-offset-2 hover:underline" href={`/foundries/${localFoundryId}`}>
-                {typeface.foundryId}
+                {foundry?.name ?? typeface.foundryId}
               </a>
             ) : (
               <span class="text-muted-foreground">{typeface.foundryId}</span>
@@ -93,7 +147,20 @@ const jsonLd = {
         {typeface.designerIds.length > 0 && (
           <div class="flex items-baseline justify-between gap-4 border-border border-b pb-2">
             <dt class="text-muted-foreground/60 uppercase">Designers</dt>
-            <dd class="text-right text-muted-foreground">{typeface.designerIds.join(", ")}</dd>
+            <dd class="text-right text-muted-foreground">
+              {creditedDesigners.map((designer, index) => (
+                <>
+                  {index > 0 && ", "}
+                  {knownDesignerNames.has(designer.name) ? (
+                    <a class="text-foreground underline-offset-2 hover:underline" href={`/designers/${slugifyName(designer.name)}`}>
+                      {designer.name}
+                    </a>
+                  ) : (
+                    designer.name
+                  )}
+                </>
+              ))}
+            </dd>
           </div>
         )}
         {typeface.scripts.length > 0 && (

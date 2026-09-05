@@ -5,9 +5,12 @@
   "type": "module",
   "scripts": {
     "astro": "astro",
+    "prebuild": "python3 scripts/generate_sitemap.py",
     "build": "astro build",
+    "postbuild": "python3 scripts/check_geo.py",
     "build:dev": "astro build --mode development",
     "check": "ultracite check",
+    "check:geo": "python3 scripts/check_geo.py",
     "dev": "astro dev --port 8080",
     "fix": "ultracite fix",
     "lint": "ultracite check",

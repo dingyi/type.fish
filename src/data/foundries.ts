@@ -8759,4 +8759,21 @@ export const foundries: Foundry[] = [
     portfolioTitle: "Replit — A brand anthem for builders",
     portfolioUrl: "https://oddfellows.tv/work/replit",
   },
+  {
+    id: 985,
+    name: "The Temporary State",
+    description:
+      "A research-focused type foundry producing Cyrillic and Latin fonts, established in 2017 by Roman Gornitsky.",
+    founded: "2017",
+    website: "type.tmpstate.net/preview/overview/",
+    category: "studio",
+  },
+  {
+    id: 986,
+    name: "TYPO72TYPO",
+    description:
+      "Experimental display type by T72T, part of Lundqvist & Dallyn Studio.",
+    website: "t72t.com",
+    category: "studio",
+  },
 ];

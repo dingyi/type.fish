@@ -13,6 +13,14 @@ const title = "Open Source Typefaces · type.fish";
 const description =
   "Open-source typefaces in the type.fish catalogue are font families marked as freely usable and modifiable, principally under the SIL Open Font License.";
 
+const featuredProject = {
+  name: "ShieldFont",
+  description:
+    "An open-source creative technology project that protects writing from unauthorized AI training. Generate OFL-licensed variants from compatible open fonts, or try the live encoder.",
+  website: "https://shieldfont.org/",
+  source: "https://github.com/isaqueseneda/shieldfont",
+};
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": ["CollectionPage", "ItemList"],
@@ -37,6 +45,47 @@ const jsonLd = {
     <p class="mt-3 max-w-2xl text-foreground/80 text-sm leading-relaxed">
       {description}
     </p>
+  </section>
+  <section class="mb-8" aria-labelledby="featured-open-source-project">
+    <div class="mb-3 flex items-baseline justify-between gap-3">
+      <h2
+        id="featured-open-source-project"
+        class="font-bold text-foreground text-lg tracking-tight"
+      >
+        Featured open-source project
+      </h2>
+      <span class="font-mono text-muted-foreground text-[10px] uppercase tracking-wider">
+        Project
+      </span>
+    </div>
+    <div class="rounded-xl border border-border bg-card p-4">
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div class="max-w-2xl">
+          <h3 class="font-medium text-foreground text-sm">{featuredProject.name}</h3>
+          <p class="mt-1 text-foreground/75 text-sm leading-relaxed">
+            {featuredProject.description}
+          </p>
+        </div>
+        <div class="flex shrink-0 gap-3 font-mono text-xs">
+          <a
+            class="text-foreground underline underline-offset-4 hover:text-foreground/70"
+            href={featuredProject.website}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Website ↗
+          </a>
+          <a
+            class="text-muted-foreground underline underline-offset-4 hover:text-foreground"
+            href={featuredProject.source}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Source ↗
+          </a>
+        </div>
+      </div>
+    </div>
   </section>
   <TypefaceGrid
     client:load

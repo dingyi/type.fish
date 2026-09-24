@@ -101,7 +101,7 @@
   --secondary-foreground: 0 0% 10%;
 
   --muted: 0 0% 94%;
-  --muted-foreground: 0 0% 45%;
+  --muted-foreground: 0 0% 40%;
 
   --accent: 0 0% 96%;
   --accent-foreground: 0 0% 10%;
@@ -194,5 +194,10 @@
      for any non-disabled button so interactive elements feel interactive. */
   button:not(:disabled) {
     cursor: pointer;
+  }
+
+  ::selection {
+    color: hsl(var(--background));
+    background-color: hsl(var(--foreground));
   }
 }

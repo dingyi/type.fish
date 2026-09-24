@@ -155,7 +155,8 @@ export function TypefaceGrid({
           </button>
         </div>
         <input
-          className="w-full rounded-full border border-border bg-background px-4 py-2 text-foreground text-sm placeholder:text-muted-foreground focus:outline-none"
+          aria-label="Search typefaces"
+          className="w-full rounded-full border border-border bg-background px-4 py-2 text-base text-foreground placeholder:text-muted-foreground focus:outline-2 focus:outline-solid focus:outline-foreground focus:outline-offset-2 sm:text-sm"
           onChange={(e) => {
             setSearch(e.target.value);
             resetPage();
@@ -173,9 +174,21 @@ export function TypefaceGrid({
         </p>
       )}
       {loadError && (
-        <p aria-live="polite" className="mb-4 text-red-700 text-xs">
-          {loadError}
-        </p>
+        <div
+          aria-live="polite"
+          className="mb-4 flex items-center gap-3 text-xs"
+        >
+          <span className="text-red-700">{loadError}</span>
+          <button
+            className="rounded-full bg-muted px-3 py-1 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+            onClick={() => {
+              loadFullDataset();
+            }}
+            type="button"
+          >
+            Retry
+          </button>
+        </div>
       )}
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -188,7 +201,7 @@ export function TypefaceGrid({
             <div className="flex items-start justify-between gap-2">
               <h3 className="font-medium text-foreground text-sm">{t.name}</h3>
               {t.isOpenSource && (
-                <span className="shrink-0 rounded-full bg-foreground/10 px-2 py-0.5 font-mono text-[10px] text-foreground/70 uppercase tracking-wider">
+                <span className="shrink-0 rounded-full bg-foreground/10 px-2 py-0.5 font-mono text-foreground/70 text-xs uppercase tracking-wider">
                   OFL
                 </span>
               )}
@@ -204,7 +217,7 @@ export function TypefaceGrid({
               />
             ) : (
               <div className="flex h-16 items-center justify-center rounded bg-muted/60">
-                <span className="font-mono text-muted-foreground/50 text-xs">
+                <span className="font-mono text-muted-foreground/70 text-xs">
                   {t.classification}
                 </span>
               </div>

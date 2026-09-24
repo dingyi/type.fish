@@ -85,9 +85,10 @@ export function DesignerGrid({ designers, countries }: Props) {
           ))}
         </div>
         <input
-          className="w-full rounded-full border border-border bg-background px-4 py-2 text-foreground text-sm placeholder:text-muted-foreground focus:outline-none"
+          aria-label="Search designers or foundries"
+          className="w-full rounded-full border border-border bg-background px-4 py-2 text-base text-foreground placeholder:text-muted-foreground focus:outline-2 focus:outline-solid focus:outline-foreground focus:outline-offset-2 sm:text-sm"
           onChange={(e) => handleSearch(e.target.value)}
-          placeholder="Search designers / foundries..."
+          placeholder="Search designers or foundries..."
           type="text"
           value={search}
         />
@@ -106,7 +107,7 @@ export function DesignerGrid({ designers, countries }: Props) {
               </h3>
               <span className="shrink-0 font-mono text-muted-foreground text-xs tabular-nums">
                 {designer.workCount}
-                <span className="text-muted-foreground/60"> works</span>
+                <span> works</span>
               </span>
             </div>
             <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1">

@@ -10,10 +10,10 @@ import { cn } from "@/lib/utils";
  */
 const CATEGORY_BG: Record<Foundry["category"], string> = {
   classic: "#0a0a0a", // near-black
-  indie: "#e11d48", // rose
+  indie: "#be123c", // rose
   modern: "#f4f4f4", // near-white
   studio: "#7c3aed", // violet
-  tech: "#059669", // emerald
+  tech: "#047857", // emerald
 };
 
 // Hoisted out of the hot path (Biome useTopLevelRegex).
@@ -30,6 +30,7 @@ function byte(packed: number, shift: number): number {
  */
 function luminance(hex: string): number {
   const m = HEX_RE.exec(hex.trim());
+  // biome-ignore lint/suspicious/noUnnecessaryConditions: exec() returns null at runtime for invalid input; TS 7 agrees (TS18047 without this guard), rule is a false positive.
   if (!m) {
     return 1;
   }
@@ -59,7 +60,7 @@ export function FoundryCard({
   return (
     <a
       className={cn(
-        "group/card relative flex aspect-square items-center justify-center overflow-hidden rounded-lg p-2 transition-transform hover:scale-[1.03]",
+        "group/card relative flex aspect-square items-center justify-center overflow-hidden rounded-lg p-2 transition-transform hover:scale-[1.03] active:scale-[0.97]",
         fgClass,
         className
       )}

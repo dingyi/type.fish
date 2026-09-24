@@ -119,7 +119,8 @@ export function FoundryTable({ foundries, countries, assets, gitDate }: Props) {
         </div>
         <div className="flex items-center gap-2">
           <input
-            className="w-full flex-1 rounded-full border border-border bg-background px-4 py-2 text-foreground text-sm placeholder:text-muted-foreground focus:outline-none"
+            aria-label="Search foundries"
+            className="w-full flex-1 rounded-full border border-border bg-background px-4 py-2 text-base text-foreground placeholder:text-muted-foreground focus:outline-2 focus:outline-solid focus:outline-foreground focus:outline-offset-2 sm:text-sm"
             onChange={(e) => handleSearch(e.target.value)}
             placeholder="Search foundries..."
             type="text"
@@ -129,7 +130,7 @@ export function FoundryTable({ foundries, countries, assets, gitDate }: Props) {
             <button
               aria-label="List view"
               aria-pressed={viewMode === "list"}
-              className={`inline-flex h-7 w-7 items-center justify-center rounded-full transition-colors ${
+              className={`inline-flex h-8 w-8 items-center justify-center rounded-full transition-colors ${
                 viewMode === "list"
                   ? "bg-foreground text-background"
                   : "text-muted-foreground hover:text-foreground"
@@ -142,7 +143,7 @@ export function FoundryTable({ foundries, countries, assets, gitDate }: Props) {
             <button
               aria-label="Grid view"
               aria-pressed={viewMode === "grid"}
-              className={`inline-flex h-7 w-7 items-center justify-center rounded-full transition-colors ${
+              className={`inline-flex h-8 w-8 items-center justify-center rounded-full transition-colors ${
                 viewMode === "grid"
                   ? "bg-foreground text-background"
                   : "text-muted-foreground hover:text-foreground"
@@ -207,7 +208,10 @@ export function FoundryTable({ foundries, countries, assets, gitDate }: Props) {
                       )}
                     </td>
                     <td className="hidden max-w-[320px] px-4 py-2.5 md:table-cell">
-                      <span className="block truncate text-muted-foreground">
+                      <span
+                        className="block truncate text-muted-foreground"
+                        title={foundry.description || undefined}
+                      >
                         {foundry.description || "—"}
                       </span>
                     </td>
@@ -242,7 +246,7 @@ export function FoundryTable({ foundries, countries, assets, gitDate }: Props) {
         </div>
       )}
 
-      <div className="mt-3 flex flex-wrap items-center justify-between gap-3 text-muted-foreground text-xs">
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-3 text-muted-foreground text-xs">
         <span>
           Showing{" "}
           <span className="font-mono tabular-nums">{pageItems.length}</span> /{" "}

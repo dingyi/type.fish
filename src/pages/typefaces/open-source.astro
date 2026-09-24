@@ -13,13 +13,22 @@ const title = "Open Source Typefaces · type.fish";
 const description =
   "Open-source typefaces in the type.fish catalogue are font families marked as freely usable and modifiable, principally under the SIL Open Font License.";
 
-const featuredProject = {
-  name: "ShieldFont",
-  description:
-    "An open-source creative technology project that protects writing from unauthorized AI training. Generate OFL-licensed variants from compatible open fonts, or try the live encoder.",
-  website: "https://shieldfont.org/",
-  source: "https://github.com/isaqueseneda/shieldfont",
-};
+const featuredProjects = [
+  {
+    name: "ShieldFont",
+    description:
+      "An open-source creative technology project that protects writing from unauthorized AI training. Generate OFL-licensed variants from compatible open fonts, or try the live encoder.",
+    website: "https://shieldfont.org/",
+    source: "https://github.com/isaqueseneda/shieldfont",
+  },
+  {
+    name: "Sunghyun Sans",
+    description:
+      "A rounded, multilingual typeface with nine weights across Latin, Cyrillic, Greek, Vietnamese, Korean, Japanese, and Chinese, released under the SIL Open Font License.",
+    website: "https://cho.sh/mini/sans",
+    source: "https://github.com/anaclumos/sunghyun-sans",
+  },
+];
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -58,33 +67,37 @@ const jsonLd = {
         Project
       </span>
     </div>
-    <div class="rounded-xl border border-border bg-card p-4">
-      <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-        <div class="max-w-2xl">
-          <h3 class="font-medium text-foreground text-sm">{featuredProject.name}</h3>
-          <p class="mt-1 text-foreground/75 text-sm leading-relaxed">
-            {featuredProject.description}
-          </p>
+    <div class="grid gap-3 md:grid-cols-2">
+      {featuredProjects.map((project) => (
+        <div class="rounded-xl border border-border bg-card p-4">
+          <div class="flex h-full flex-col gap-3">
+            <div class="max-w-2xl">
+              <h3 class="font-medium text-foreground text-sm">{project.name}</h3>
+              <p class="mt-1 text-foreground/75 text-sm leading-relaxed">
+                {project.description}
+              </p>
+            </div>
+            <div class="mt-auto flex gap-3 pt-1 font-mono text-xs">
+              <a
+                class="text-foreground underline underline-offset-4 hover:text-foreground/70"
+                href={project.website}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Website ↗
+              </a>
+              <a
+                class="text-muted-foreground underline underline-offset-4 hover:text-foreground"
+                href={project.source}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Source ↗
+              </a>
+            </div>
+          </div>
         </div>
-        <div class="flex shrink-0 gap-3 font-mono text-xs">
-          <a
-            class="text-foreground underline underline-offset-4 hover:text-foreground/70"
-            href={featuredProject.website}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Website ↗
-          </a>
-          <a
-            class="text-muted-foreground underline underline-offset-4 hover:text-foreground"
-            href={featuredProject.source}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Source ↗
-          </a>
-        </div>
-      </div>
+      ))}
     </div>
   </section>
   <TypefaceGrid

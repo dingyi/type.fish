@@ -103,7 +103,7 @@ const jsonLd = {
         <img class="w-full rounded-xl border border-border object-cover" height="500" width="800" src={typeface.previewImage} alt={typeface.name} />
       ) : (
         <div class="flex aspect-[2/1] items-center justify-center rounded-xl border border-border bg-muted/40">
-          <span class="font-mono text-4xl text-foreground/40">{typeface.name}</span>
+          <span class="font-mono text-4xl text-foreground/60">{typeface.name}</span>
         </div>
       )}
     </div>
@@ -114,7 +114,7 @@ const jsonLd = {
         <div class="mb-1 flex items-center gap-2">
           <h1 class="font-bold text-2xl text-foreground tracking-tight">{typeface.name}</h1>
           {typeface.isOpenSource && (
-            <span class="rounded-full bg-foreground/10 px-2 py-0.5 font-mono text-[10px] tracking-wider text-foreground/70 uppercase">
+            <span class="rounded-full bg-foreground/10 px-2 py-0.5 font-mono text-foreground/70 text-xs tracking-wider uppercase">
               Open Source
             </span>
           )}

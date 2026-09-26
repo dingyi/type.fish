@@ -44,6 +44,43 @@ TYPEFACE_SELECT = (
     "specimen_url,release_year,is_variable,has_italic,url,language_support,variants"
 )
 
+# The Designers Foundry publishes a few recent families before they appear in
+# type.lol. Keep these official-site-only records here so a normal ingest does
+# not drop them. Resan is in type.lol under a legacy foundry slug; its family
+# record is canonicalized to the local foundry slug below.
+TDF_MANUAL_TYPEFACES = [
+    {
+        "id": "the-designers-foundry--noxy",
+        "name": "Noxy",
+        "foundryId": "the-designers-foundry",
+        "designerIds": [],
+        "classification": "other",
+        "description": None,
+        "previewImage": None,
+        "specimenUrl": None,
+        "releaseYear": None,
+        "isVariable": False,
+        "hasItalic": False,
+        "scripts": [],
+        "isOpenSource": False,
+    },
+    {
+        "id": "the-designers-foundry--caltrop",
+        "name": "Caltrop",
+        "foundryId": "the-designers-foundry",
+        "designerIds": [],
+        "classification": "other",
+        "description": None,
+        "previewImage": None,
+        "specimenUrl": None,
+        "releaseYear": None,
+        "isVariable": False,
+        "hasItalic": False,
+        "scripts": [],
+        "isOpenSource": False,
+    },
+]
+
 
 def api_get(path: str, select: str, extra: str = "") -> list[dict]:
     """Paginated PostgREST GET."""
@@ -99,7 +136,69 @@ def fmt_arr(items: list[str] | None) -> str:
     return f"[{inner}]"
 
 
+def append_tdf_supplements() -> int:
+    """Append recent official TDF families without refreshing the full corpus."""
+    typefaces = json.loads(OUT_TYPEFACES_JSON.read_text(encoding="utf-8"))
+    maps = json.loads(OUT_MAPS_JSON.read_text(encoding="utf-8"))
+    by_foundry = maps["byFoundry"]
+    by_designer = maps["byDesigner"]
+    existing = {typeface["id"] for typeface in typefaces}
+    added = 0
+
+    resan_rows = api_get(
+        "typefaces",
+        TYPEFACE_SELECT,
+        "id=eq.designers-foundry--resan&status=eq.active",
+    )
+    if resan_rows and "designers-foundry--resan" not in existing:
+        row = resan_rows[0]
+        resan = {
+            "id": row["id"],
+            "name": row["name"],
+            "foundryId": "the-designers-foundry",
+            "designerIds": sorted(
+                {
+                    credit["designerId"]
+                    for credit in row.get("credits") or []
+                    if credit.get("designerId")
+                }
+            ),
+            "classification": row.get("primary_classification") or "other",
+            "description": row.get("description"),
+            "previewImage": row.get("preview_image"),
+            "specimenUrl": row.get("specimen_url") or row.get("url"),
+            "releaseYear": row.get("release_year"),
+            "isVariable": bool(row.get("is_variable")),
+            "hasItalic": bool(row.get("has_italic")),
+            "scripts": (row.get("language_support") or {}).get("scripts") or [],
+            "isOpenSource": False,
+        }
+        typefaces.append(resan)
+        by_foundry.setdefault("the-designers-foundry", []).append(resan["id"])
+        for designer_id in resan["designerIds"]:
+            by_designer.setdefault(designer_id, []).append(resan["id"])
+        existing.add(resan["id"])
+        added += 1
+
+    for typeface in TDF_MANUAL_TYPEFACES:
+        if typeface["id"] in existing:
+            continue
+        typefaces.append(typeface)
+        by_foundry.setdefault(typeface["foundryId"], []).append(typeface["id"])
+        existing.add(typeface["id"])
+        added += 1
+
+    typefaces.sort(key=lambda typeface: typeface["name"].lower())
+    write_typefaces(typefaces)
+    write_maps(by_foundry, by_designer)
+    print(f"Added {added} TDF families.")
+    return 0
+
+
 def main() -> int:
+    if "--tdf-supplements" in sys.argv:
+        return append_tdf_supplements()
+
     if not KEY:
         print("TYPE_LOL_KEY not set", file=sys.stderr)
         return 1
@@ -128,6 +227,9 @@ def main() -> int:
             continue
         seen_ids.add(tid)
 
+        if name == "Resan" and fid == "designers-foundry":
+            fid = "the-designers-foundry"
+
         is_open = name.strip().lower() in ofl
         classification = t.get("primary_classification") or "other"
         langs = (t.get("language_support") or {}).get("scripts") or []
@@ -154,6 +256,12 @@ def main() -> int:
         by_foundry.setdefault(fid, []).append(tid)
         for did in designer_ids:
             by_designer.setdefault(did, []).append(tid)
+
+    for typeface in TDF_MANUAL_TYPEFACES:
+        if typeface["id"] not in seen_ids:
+            typefaces.append(typeface)
+            by_foundry.setdefault(typeface["foundryId"], []).append(typeface["id"])
+            seen_ids.add(typeface["id"])
 
     typefaces.sort(key=lambda x: x["name"].lower())
 

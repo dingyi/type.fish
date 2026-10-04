@@ -30,7 +30,6 @@ function byte(packed: number, shift: number): number {
  */
 function luminance(hex: string): number {
   const m = HEX_RE.exec(hex.trim());
-  // biome-ignore lint/suspicious/noUnnecessaryConditions: exec() returns null at runtime for invalid input; TS 7 agrees (TS18047 without this guard), rule is a false positive.
   if (!m) {
     return 1;
   }

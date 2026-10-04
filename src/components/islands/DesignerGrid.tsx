@@ -86,7 +86,7 @@ export function DesignerGrid({ designers, countries }: Props) {
         </div>
         <input
           aria-label="Search designers or foundries"
-          className="w-full rounded-full border border-border bg-background px-4 py-2 text-base text-foreground placeholder:text-muted-foreground focus:outline-2 focus:outline-solid focus:outline-foreground focus:outline-offset-2 sm:text-sm"
+          className="w-full rounded-full border border-border bg-background px-4 py-2 text-base text-foreground placeholder:text-muted-foreground focus:outline-2 focus:outline-foreground focus:outline-solid focus:outline-offset-2 sm:text-sm"
           onChange={(e) => handleSearch(e.target.value)}
           placeholder="Search designers or foundries..."
           type="text"

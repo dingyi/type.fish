@@ -120,13 +120,13 @@ export function FoundryTable({ foundries, countries, assets, gitDate }: Props) {
         <div className="flex items-center gap-2">
           <input
             aria-label="Search foundries"
-            className="w-full flex-1 rounded-full border border-border bg-background px-4 py-2 text-base text-foreground placeholder:text-muted-foreground focus:outline-2 focus:outline-foreground focus:outline-solid focus:outline-offset-2 sm:text-sm"
+            className="border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-foreground w-full flex-1 rounded-full border px-4 py-2 text-base focus:outline-2 focus:outline-offset-2 focus:outline-solid sm:text-sm"
             onChange={(e) => handleSearch(e.target.value)}
             placeholder="Search foundries..."
             type="text"
             value={search}
           />
-          <div className="flex shrink-0 items-center gap-1 rounded-full bg-muted p-1">
+          <div className="bg-muted flex shrink-0 items-center gap-1 rounded-full p-1">
             <button
               aria-label="List view"
               aria-pressed={viewMode === "list"}
@@ -158,24 +158,24 @@ export function FoundryTable({ foundries, countries, assets, gitDate }: Props) {
       </div>
 
       {viewMode === "list" ? (
-        <div className="overflow-hidden rounded-xl border border-border">
+        <div className="border-border overflow-hidden rounded-xl border">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-border border-b bg-muted/50 text-left">
-                  <th className="w-12 px-4 py-2.5 font-medium font-mono text-muted-foreground text-xs">
+                <tr className="border-border bg-muted/50 border-b text-left">
+                  <th className="text-muted-foreground w-12 px-4 py-2.5 font-mono text-xs font-medium">
                     #
                   </th>
-                  <th className="px-4 py-2.5 font-medium font-mono text-muted-foreground text-xs">
+                  <th className="text-muted-foreground px-4 py-2.5 font-mono text-xs font-medium">
                     Name
                   </th>
-                  <th className="hidden w-12 px-4 py-2.5 font-medium font-mono text-muted-foreground text-xs lg:table-cell">
+                  <th className="text-muted-foreground hidden w-12 px-4 py-2.5 font-mono text-xs font-medium lg:table-cell">
                     Flag
                   </th>
-                  <th className="hidden px-4 py-2.5 font-medium font-mono text-muted-foreground text-xs md:table-cell">
+                  <th className="text-muted-foreground hidden px-4 py-2.5 font-mono text-xs font-medium md:table-cell">
                     Description
                   </th>
-                  <th className="px-4 py-2.5 text-right font-medium font-mono text-muted-foreground text-xs">
+                  <th className="text-muted-foreground px-4 py-2.5 text-right font-mono text-xs font-medium">
                     Website
                   </th>
                 </tr>
@@ -183,15 +183,15 @@ export function FoundryTable({ foundries, countries, assets, gitDate }: Props) {
               <tbody>
                 {pageItems.map((foundry, index) => (
                   <tr
-                    className="border-border border-b transition-colors last:border-b-0 hover:bg-accent"
+                    className="border-border hover:bg-accent border-b transition-colors last:border-b-0"
                     key={foundry.id}
                   >
-                    <td className="px-4 py-2.5 font-mono text-muted-foreground text-xs tabular-nums">
+                    <td className="text-muted-foreground px-4 py-2.5 font-mono text-xs tabular-nums">
                       {start + index + 1}
                     </td>
                     <td className="px-4 py-2.5">
                       <a
-                        className="font-medium text-foreground transition-colors hover:text-muted-foreground"
+                        className="text-foreground hover:text-muted-foreground font-medium transition-colors"
                         href={`/foundries/${foundry.id}`}
                       >
                         {foundry.name}
@@ -209,7 +209,7 @@ export function FoundryTable({ foundries, countries, assets, gitDate }: Props) {
                     </td>
                     <td className="hidden max-w-[320px] px-4 py-2.5 md:table-cell">
                       <span
-                        className="block truncate text-muted-foreground"
+                        className="text-muted-foreground block truncate"
                         title={foundry.description || undefined}
                       >
                         {foundry.description || "—"}
@@ -217,7 +217,7 @@ export function FoundryTable({ foundries, countries, assets, gitDate }: Props) {
                     </td>
                     <td className="px-4 py-2.5 text-right">
                       <a
-                        className="inline-flex items-center gap-1 text-muted-foreground transition-colors hover:text-foreground"
+                        className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1 transition-colors"
                         href={`https://${foundry.website}`}
                         rel="noopener noreferrer"
                         target="_blank"
@@ -246,7 +246,7 @@ export function FoundryTable({ foundries, countries, assets, gitDate }: Props) {
         </div>
       )}
 
-      <div className="mt-6 flex flex-wrap items-center justify-between gap-3 text-muted-foreground text-xs">
+      <div className="text-muted-foreground mt-6 flex flex-wrap items-center justify-between gap-3 text-xs">
         <span>
           Showing{" "}
           <span className="font-mono tabular-nums">{pageItems.length}</span> /{" "}
@@ -263,7 +263,7 @@ export function FoundryTable({ foundries, countries, assets, gitDate }: Props) {
             <button
               className={`inline-flex items-center gap-1 rounded-full px-3 py-1 transition-colors ${
                 safePage === 0
-                  ? "cursor-not-allowed text-muted-foreground/40"
+                  ? "text-muted-foreground/40 cursor-not-allowed"
                   : "bg-muted text-muted-foreground hover:bg-accent hover:text-foreground"
               }`}
               disabled={safePage === 0}
@@ -273,13 +273,13 @@ export function FoundryTable({ foundries, countries, assets, gitDate }: Props) {
               <ChevronLeft className="h-3 w-3" />
               Prev
             </button>
-            <span className="font-mono text-foreground/80 tabular-nums">
+            <span className="text-foreground/80 font-mono tabular-nums">
               {safePage + 1} / {pageCount}
             </span>
             <button
               className={`inline-flex items-center gap-1 rounded-full px-3 py-1 transition-colors ${
                 safePage >= pageCount - 1
-                  ? "cursor-not-allowed text-muted-foreground/40"
+                  ? "text-muted-foreground/40 cursor-not-allowed"
                   : "bg-muted text-muted-foreground hover:bg-accent hover:text-foreground"
               }`}
               disabled={safePage >= pageCount - 1}

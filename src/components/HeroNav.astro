@@ -1,7 +1,7 @@
 ---
 // Top navigation. Server-rendered; active-link state computed from the current
 // URL path. No client JS.
-const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
+const pathname = Astro.url.pathname.replace(/\/$/u, "") || "/";
 
 const navItems = [
   { label: "Foundry", path: "/" },

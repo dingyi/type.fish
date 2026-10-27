@@ -156,7 +156,7 @@ export function TypefaceGrid({
         </div>
         <input
           aria-label="Search typefaces"
-          className="w-full rounded-full border border-border bg-background px-4 py-2 text-base text-foreground placeholder:text-muted-foreground focus:outline-2 focus:outline-foreground focus:outline-solid focus:outline-offset-2 sm:text-sm"
+          className="border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-foreground w-full rounded-full border px-4 py-2 text-base focus:outline-2 focus:outline-offset-2 focus:outline-solid sm:text-sm"
           onChange={(e) => {
             setSearch(e.target.value);
             resetPage();
@@ -169,7 +169,7 @@ export function TypefaceGrid({
       </div>
 
       {isLoading && (
-        <p aria-live="polite" className="mb-4 text-muted-foreground text-xs">
+        <p aria-live="polite" className="text-muted-foreground mb-4 text-xs">
           Loading the full catalogue…
         </p>
       )}
@@ -180,7 +180,7 @@ export function TypefaceGrid({
         >
           <span className="text-red-700">{loadError}</span>
           <button
-            className="rounded-full bg-muted px-3 py-1 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+            className="bg-muted text-muted-foreground hover:bg-accent hover:text-foreground rounded-full px-3 py-1 transition-colors"
             onClick={() => {
               loadFullDataset();
             }}
@@ -194,14 +194,14 @@ export function TypefaceGrid({
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {pageItems.map((t) => (
           <a
-            className="flex flex-col gap-2 rounded-xl border border-border bg-card p-4 transition-colors hover:bg-accent"
+            className="border-border bg-card hover:bg-accent flex flex-col gap-2 rounded-xl border p-4 transition-colors"
             href={`/typefaces/${t.id}`}
             key={t.id}
           >
             <div className="flex items-start justify-between gap-2">
-              <h3 className="font-medium text-foreground text-sm">{t.name}</h3>
+              <h3 className="text-foreground text-sm font-medium">{t.name}</h3>
               {t.isOpenSource && (
-                <span className="shrink-0 rounded-full bg-foreground/10 px-2 py-0.5 font-mono text-foreground/70 text-xs uppercase tracking-wider">
+                <span className="bg-foreground/10 text-foreground/70 shrink-0 rounded-full px-2 py-0.5 font-mono text-xs tracking-wider uppercase">
                   OFL
                 </span>
               )}
@@ -209,20 +209,20 @@ export function TypefaceGrid({
             {t.previewImage ? (
               <img
                 alt={t.name}
-                className="h-16 w-full rounded bg-muted object-cover"
+                className="bg-muted h-16 w-full rounded object-cover"
                 height={64}
                 loading="lazy"
                 src={t.previewImage}
                 width={400}
               />
             ) : (
-              <div className="flex h-16 items-center justify-center rounded bg-muted/60">
-                <span className="font-mono text-muted-foreground/70 text-xs">
+              <div className="bg-muted/60 flex h-16 items-center justify-center rounded">
+                <span className="text-muted-foreground/70 font-mono text-xs">
                   {t.classification}
                 </span>
               </div>
             )}
-            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-muted-foreground text-xs">
+            <div className="text-muted-foreground flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs">
               <span>{t.foundryId}</span>
               {t.isVariable && <span>· variable</span>}
               {t.hasItalic && <span>· italic</span>}
@@ -232,7 +232,7 @@ export function TypefaceGrid({
         ))}
       </div>
 
-      <div className="mt-6 flex items-center justify-between text-muted-foreground text-xs">
+      <div className="text-muted-foreground mt-6 flex items-center justify-between text-xs">
         <span>
           Showing{" "}
           <span className="font-mono tabular-nums">{pageItems.length}</span> /{" "}
@@ -244,7 +244,7 @@ export function TypefaceGrid({
           <button
             className={`inline-flex items-center gap-1 rounded-full px-3 py-1 transition-colors ${
               safePage === 0
-                ? "cursor-not-allowed text-muted-foreground/40"
+                ? "text-muted-foreground/40 cursor-not-allowed"
                 : "bg-muted text-muted-foreground hover:bg-accent hover:text-foreground"
             }`}
             disabled={safePage === 0}
@@ -260,13 +260,13 @@ export function TypefaceGrid({
             <ChevronLeft className="h-3 w-3" />
             Prev
           </button>
-          <span className="font-mono text-foreground/80 tabular-nums">
+          <span className="text-foreground/80 font-mono tabular-nums">
             {safePage + 1} / {pageCount}
           </span>
           <button
             className={`inline-flex items-center gap-1 rounded-full px-3 py-1 transition-colors ${
               safePage >= pageCount - 1
-                ? "cursor-not-allowed text-muted-foreground/40"
+                ? "text-muted-foreground/40 cursor-not-allowed"
                 : "bg-muted text-muted-foreground hover:bg-accent hover:text-foreground"
             }`}
             disabled={safePage >= pageCount - 1}

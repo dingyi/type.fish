@@ -33,7 +33,7 @@ const jsonLd = {
 };
 
 // Hoisted out of the hot path (Biome useTopLevelRegex).
-const WWW_RE = /^www\./;
+const WWW_RE = /^www\./u;
 
 function hostOf(website: string): string {
   return new URL(website).hostname.replace(WWW_RE, "");

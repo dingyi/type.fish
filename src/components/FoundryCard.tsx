@@ -17,7 +17,7 @@ const CATEGORY_BG: Record<Foundry["category"], string> = {
 };
 
 // Hoisted out of the hot path (Biome useTopLevelRegex).
-const HEX_RE = /^#?([0-9a-f]{6})$/i;
+const HEX_RE = /^#?(?<hex>[0-9a-f]{6})$/iu;
 
 /** Pull one byte out of a packed RGB integer using arithmetic, not bitwise. */
 function byte(packed: number, shift: number): number {
@@ -79,7 +79,7 @@ export function FoundryCard({
           width={48}
         />
       ) : (
-        <span className="break-words text-center font-semibold text-xs leading-tight">
+        <span className="text-center text-xs leading-tight font-semibold break-words">
           {foundry.name}
         </span>
       )}

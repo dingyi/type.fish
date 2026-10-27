@@ -196,6 +196,7 @@
     cursor: pointer;
   }
 
+  /* biome-ignore lint/suspicious/useBaseline: ::selection has been supported by all browsers since IE9; the Baseline data flags it spuriously. */
   ::selection {
     color: hsl(var(--background));
     background-color: hsl(var(--foreground));

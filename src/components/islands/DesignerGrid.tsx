@@ -86,7 +86,7 @@ export function DesignerGrid({ designers, countries }: Props) {
         </div>
         <input
           aria-label="Search designers or foundries"
-          className="w-full rounded-full border border-border bg-background px-4 py-2 text-base text-foreground placeholder:text-muted-foreground focus:outline-2 focus:outline-foreground focus:outline-solid focus:outline-offset-2 sm:text-sm"
+          className="border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-foreground w-full rounded-full border px-4 py-2 text-base focus:outline-2 focus:outline-offset-2 focus:outline-solid sm:text-sm"
           onChange={(e) => handleSearch(e.target.value)}
           placeholder="Search designers or foundries..."
           type="text"
@@ -97,28 +97,28 @@ export function DesignerGrid({ designers, countries }: Props) {
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {pageItems.map((designer) => (
           <a
-            className="flex flex-col gap-2 rounded-xl border border-border bg-card p-4 transition-colors hover:bg-accent"
+            className="border-border bg-card hover:bg-accent flex flex-col gap-2 rounded-xl border p-4 transition-colors"
             href={`/designers/${slugifyName(designer.name)}`}
             key={`${designer.name}-${designer.workCount}`}
           >
             <div className="flex items-start justify-between gap-2">
-              <h3 className="font-medium text-foreground text-sm">
+              <h3 className="text-foreground text-sm font-medium">
                 {designer.name}
               </h3>
-              <span className="shrink-0 font-mono text-muted-foreground text-xs tabular-nums">
+              <span className="text-muted-foreground shrink-0 font-mono text-xs tabular-nums">
                 {designer.workCount}
                 <span> works</span>
               </span>
             </div>
             <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-2 py-0.5 text-muted-foreground text-xs">
+              <span className="bg-muted text-muted-foreground inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs">
                 <CountryFlag country={designer.country} />
                 {designer.country}
               </span>
               {designer.foundries.length > 0 && (
                 <>
                   <span className="text-muted-foreground/40 text-xs">·</span>
-                  <span className="font-mono text-muted-foreground text-xs">
+                  <span className="text-muted-foreground font-mono text-xs">
                     {designer.foundries.join(", ")}
                     {designer.foundryCount > designer.foundries.length
                       ? ` +${designer.foundryCount - designer.foundries.length}`
@@ -131,7 +131,7 @@ export function DesignerGrid({ designers, countries }: Props) {
         ))}
       </div>
 
-      <div className="mt-6 flex items-center justify-between text-muted-foreground text-xs">
+      <div className="text-muted-foreground mt-6 flex items-center justify-between text-xs">
         <span>
           Showing{" "}
           <span className="font-mono tabular-nums">{pageItems.length}</span> /{" "}
@@ -144,7 +144,7 @@ export function DesignerGrid({ designers, countries }: Props) {
           <button
             className={`inline-flex items-center gap-1 rounded-full px-3 py-1 transition-colors ${
               safePage === 0
-                ? "cursor-not-allowed text-muted-foreground/40"
+                ? "text-muted-foreground/40 cursor-not-allowed"
                 : "bg-muted text-muted-foreground hover:bg-accent hover:text-foreground"
             }`}
             disabled={safePage === 0}
@@ -154,13 +154,13 @@ export function DesignerGrid({ designers, countries }: Props) {
             <ChevronLeft className="h-3 w-3" />
             Prev
           </button>
-          <span className="font-mono text-foreground/80 tabular-nums">
+          <span className="text-foreground/80 font-mono tabular-nums">
             {safePage + 1} / {pageCount}
           </span>
           <button
             className={`inline-flex items-center gap-1 rounded-full px-3 py-1 transition-colors ${
               safePage >= pageCount - 1
-                ? "cursor-not-allowed text-muted-foreground/40"
+                ? "text-muted-foreground/40 cursor-not-allowed"
                 : "bg-muted text-muted-foreground hover:bg-accent hover:text-foreground"
             }`}
             disabled={safePage >= pageCount - 1}
